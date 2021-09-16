@@ -1,9 +1,17 @@
+import Connexion from "./connexion";
+import React from "react";
+import { BrowserRouter, Switch, Route } from "react-router-dom";
+
+
 
 function App() {
   return (
-    <div className="App">
-      <h1>hello react</h1>
-    </div>
+    
+    <BrowserRouter>
+      <Switch>
+          <Route path="/" exact component={Connexion} />
+      </Switch>
+    </BrowserRouter>
   );
 }
 
