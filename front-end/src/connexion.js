@@ -1,5 +1,6 @@
 import React from 'react';
 import Navigation from './Components/nav';
+import CompletLogo from './img/icon-above-font.svg';
 
 const Connexion = () => {
     return (
@@ -7,7 +8,6 @@ const Connexion = () => {
 
             <Navigation />
 
-            <h1 className="connexion__title">Connectez-vous pour commencer</h1>
 
             <form className="connexion__form">
                 <input type="text" placeholder="Email" className="connexion__form--email"></input>

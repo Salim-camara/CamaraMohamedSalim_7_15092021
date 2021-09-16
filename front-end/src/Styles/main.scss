@@ -1,1 +1,9 @@
+// depuis le dossier utils
+@import './utils/variables';
+@import './utils/mixins';
+
+// depuis components
+@import './components/nav';
+
 @import 'base';
+@import 'body';

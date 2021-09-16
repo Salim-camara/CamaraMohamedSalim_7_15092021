@@ -1,0 +1,46 @@
+.connexion {
+    position: absolute;
+    margin-left: auto;
+    margin-right: auto;
+    top: 80px;
+    left: 0;
+    right: 0;
+    @include dsc();
+    width: 40%;
+    height: 700px;
+    background-color: white;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
+
+    &__form {
+        @include dsc();
+        width: 100%;
+    }
+
+    &--button {
+        width: 50%;
+        height: 50px;
+        margin-top: 80px;
+        background-color: $tertiary-color;
+        color: $primary-color;
+        font-size: 20px;
+        border: 2px solid $secondary-color;
+        transform: scale(1);
+
+        &:hover {
+            transform: scale(1.015);
+            background-color: lighten($color: $tertiary-color, $amount: 2.5%);
+            font-size: 22px;
+            transition-duration: 0.15s;
+
+        }
+
+    }
+
+}
+
+input {
+    width: 80%;
+    height: 30px;
+    margin-bottom: 20px;
+    border: 2px solid $primary-color;
+}
