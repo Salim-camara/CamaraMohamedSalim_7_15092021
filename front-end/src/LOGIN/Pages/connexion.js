@@ -1,6 +1,5 @@
 import React from 'react';
-import Navigation from './Components/nav';
-import CompletLogo from './img/icon-above-font.svg';
+import Navigation from '../Components/nav';
 
 const Connexion = () => {
     return (

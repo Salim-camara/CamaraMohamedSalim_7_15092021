@@ -2,8 +2,12 @@
 @import './utils/variables';
 @import './utils/mixins';
 
+// la base
+@import 'base';
+
 // depuis components
 @import './components/nav';
 
-@import 'base';
-@import 'body';
+// les différentes pages
+@import './pages/connexion';
+@import './pages/inscription'
