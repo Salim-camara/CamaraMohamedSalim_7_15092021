@@ -7,7 +7,6 @@
     right: 0;
     @include dsc();
     width: 40%;
-    height: 700px;
     background-color: white;
     box-shadow: $box-shadow;
 }
@@ -76,5 +75,24 @@
 
     &--label {
         margin-top: 10px;
+    }
+}
+
+.compte {
+    width: 100%;
+    @include dsc();
+
+    &--texte {
+        width: 80%;
+        text-align: center;
+
+        &::after {
+            content: "";
+            display: block;
+            height: 1px;
+            width: 100%;
+            background: $tertiary-color;
+            margin-top: 5px;
+        }
     }
 }

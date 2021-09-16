@@ -1,0 +1,35 @@
+.login {
+    @include dsc();
+    width: 100%;
+}
+
+.form {
+    @include dsc();
+    width: 100%;
+
+    &--input {
+        width: 80%;
+        height: 30px;
+        margin-bottom: 20px;
+        border: 2px solid $primary-color;
+    }
+}
+
+.button {
+    width: 50%;
+    height: 50px;
+    margin-top: 20px;
+    background-color: $tertiary-color;
+    color: $primary-color;
+    font-size: 20px;
+    border: 2px solid $secondary-color;
+    transform: scale(1);
+
+    &:hover {
+        transform: scale(1.015);
+        background-color: lighten($color: $tertiary-color, $amount: 2.5%);
+        font-size: 22px;
+        transition-duration: 0.15s;
+
+    }
+}

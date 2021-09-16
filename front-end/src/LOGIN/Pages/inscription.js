@@ -1,5 +1,6 @@
 import React from 'react';
 import Navigation from '../Components/nav';
+import Login from '../Components/login';
 
 const Inscription = () => {
     return (
@@ -36,6 +37,16 @@ const Inscription = () => {
                         </div>
                     </div>
                 </div>
+
+
+            </div>
+
+            {/* bloc compte */}
+            <div className="compte">
+                <p className="compte--texte">Votre compte</p>
+
+                <Login />
+
 
 
             </div>
