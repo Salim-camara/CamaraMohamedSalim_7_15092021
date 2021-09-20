@@ -1,14 +1,19 @@
+#root {
+    width: 100%;
+    @include dsf(center);
+    margin: 25px 0 25px 0;
+}
+
 .inscription {
-    position: absolute;
-    margin-left: auto;
-    margin-right: auto;
-    top: 80px;
-    left: 0;
-    right: 0;
+    // position: absolute;
+    // margin: auto;
+    // right: 0;
+    // left: 0;
     @include dsc();
     width: 40%;
     background-color: white;
     box-shadow: $box-shadow;
+    padding-bottom: 20px;
 }
 
 .info {
@@ -83,8 +88,9 @@
     @include dsc();
 
     &--texte {
-        width: 80%;
+        width: 90%;
         text-align: center;
+        color: $primary-color;
 
         &::after {
             content: "";

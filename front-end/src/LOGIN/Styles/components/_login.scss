@@ -19,16 +19,16 @@
     width: 50%;
     height: 50px;
     margin-top: 20px;
-    background-color: $tertiary-color;
-    color: $primary-color;
+    background-color: $primary-color;
+    color: $secondary-color;
     font-size: 20px;
-    border: 2px solid $secondary-color;
+    border: none;
     transform: scale(1);
 
     &:hover {
         transform: scale(1.015);
-        background-color: lighten($color: $tertiary-color, $amount: 2.5%);
-        font-size: 22px;
+        background-color: lighten($color: $primary-color, $amount: 4%);
+        // font-size: 22px;
         transition-duration: 0.15s;
 
     }
