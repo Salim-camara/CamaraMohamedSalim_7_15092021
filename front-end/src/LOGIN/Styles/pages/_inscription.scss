@@ -1,14 +1,4 @@
-#root {
-    width: 100%;
-    @include dsf(center);
-    margin: 25px 0 25px 0;
-}
-
 .inscription {
-    // position: absolute;
-    // margin: auto;
-    // right: 0;
-    // left: 0;
     @include dsc();
     width: 40%;
     background-color: white;
