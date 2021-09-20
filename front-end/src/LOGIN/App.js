@@ -1,4 +1,4 @@
-// importation des indispenssables
+// importation des indispensables
 import React from "react";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 
