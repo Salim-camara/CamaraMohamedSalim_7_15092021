@@ -2,6 +2,8 @@
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
+const userRoute = require('./route/user');
+const User = require('./models/user');
 
 // autorisation de toutes du CORS
 app.use((req, res, next) => {
@@ -14,44 +16,8 @@ app.use((req, res, next) => {
 // Ajout du bodyParser
 app.use(bodyParser.json());
 
-// **************************** Connexion à la base de données **************************************************
-const { Sequelize, Model, DataTypes } = require('sequelize');
-const sequelize = new Sequelize('testP7', 'root', 'root', {
-    host: 'localhost',
-    dialect: 'mysql'
-})
-
-// Création du modèle user
-class User extends Model {}
-User.init({
-        lastname: {
-            allowNull: false,
-            type: DataTypes.STRING
-        },
-        firstname: DataTypes.STRING,
-        birth: DataTypes.DATE,
-        sexe: DataTypes.INTEGER,
-        email: DataTypes.STRING,
-        password: DataTypes.STRING,
-        mistakes: DataTypes.INTEGER,
-        waitingTime: DataTypes.INTEGER,
-        imageUrl: DataTypes.STRING,
-        bio: DataTypes.STRING
-      }
-, { sequelize, modelName: 'user' });
-
-
-(async () => {
-  await sequelize.sync({
-      alter: true
-  });
-  const jane = await User.create({
-    username: 'janedoe',
-    birth: new Date(1980, 6, 20)
-  });
-  console.log(jane.toJSON());
-})();
-// *********************************** Fin connexion à la base de données **************************************
+// Ajout des différentes routes
+app.use('/api', userRoute);
 
 
 // Exportation de app
