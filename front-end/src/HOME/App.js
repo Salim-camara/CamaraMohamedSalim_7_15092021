@@ -5,7 +5,7 @@ import { BrowserRouter, Switch, Route } from "react-router-dom";
 
 const App = () => {
     return (
-        div
+        <h1>Hello react</h1>
     );
 }
 
