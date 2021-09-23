@@ -17,7 +17,7 @@ app.use((req, res, next) => {
 app.use(bodyParser.json());
 
 // Ajout des différentes routes
-app.use('/api', userRoute);
+app.use('', userRoute);
 
 
 // Exportation de app

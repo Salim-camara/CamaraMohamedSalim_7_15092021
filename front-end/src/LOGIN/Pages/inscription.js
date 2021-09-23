@@ -10,9 +10,11 @@ const Inscription = () => {
     const [nom, setNom] = useState('');
     const [date, setDate] = useState('');
     const [radio, setRadio] = useState('');
+    const url = 'http://localhost:3001/inscription'
     
 
     // Mise en place d'axios
+    
     
 
     return (
@@ -26,6 +28,11 @@ const Inscription = () => {
 
                 <form className="form">
                     <input type="text" placeholder="Nom" className="form--nom" value={ nom } onChange={ (e) => setNom(e.target.value) }></input>
+                    <button onClick={ Axios.post(url,{
+                        name: nom
+                    })
+    .then(() => console.log('ça marche'))
+    .catch((err) => err + 'ça marche pas')}>Axios</button>
                     <input type="text" placeholder="Prenom" className="form--nom" value={ prenom } onChange={ (e) => setPrenom(e.target.value) }></input>
                 </form>
 

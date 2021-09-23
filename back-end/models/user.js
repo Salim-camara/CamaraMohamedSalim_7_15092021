@@ -9,11 +9,11 @@ const User = db.define('User', {
         type: Sequelize.STRING
     },
     birth: {
-        type: Sequelize.DATE,
-        defaultValue: Sequelize.NOW
+        type: Sequelize.STRING,
+        defaultValue: ''
     },
     sexe: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.STRING,
         defaultValue: 0
     },
     email: {
