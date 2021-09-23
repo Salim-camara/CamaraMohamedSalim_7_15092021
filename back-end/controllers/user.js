@@ -18,7 +18,17 @@ exports.test = (req, res, next) => {
     
 }
 
-exports.testPost = (req, res, next) => {
-    console.log(req.body);
-    res.status(200).json({ message: 'inchallah' });
+exports.singUp = (req, res, next) => {
+    
+    const user = new User ({
+        firstname: req.body.firstname,
+        lastname: req.body.name,
+        birth: req.body.birth,
+        sexe: req.body.sexe,
+        email: req.body.email,
+        password: req.body.password
+    });
+    user.save()
+        .then(() => res.status(201).json({ message: 'utilisateur créé !'}))
+        .catch((error) => res.status(500).json({ message: 'utilisateur non enregistré dans le BDD' + error}));
 }

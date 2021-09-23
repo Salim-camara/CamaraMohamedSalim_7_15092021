@@ -4,6 +4,6 @@ const userControl = require('../controllers/user')
 
 
 router.get('/inscription', userControl.test);
-router.post('/inscription', userControl.testPost);
+router.post('/inscription', userControl.singUp);
 
 module.exports = router;

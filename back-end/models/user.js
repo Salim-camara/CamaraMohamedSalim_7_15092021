@@ -1,27 +1,28 @@
+const { DATE } = require('sequelize');
 const Sequelize = require('sequelize');
 const db = require('./bdd');
 
 const User = db.define('User', {
+    user_id: {
+        primaryKey: true,
+        type: Sequelize.INTEGER
+    },
     lastname: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING 
     },
     firstname: {
         type: Sequelize.STRING
     },
     birth: {
-        type: Sequelize.STRING,
-        defaultValue: ''
+        type: Sequelize.STRING
     },
     sexe: {
-        type: Sequelize.STRING,
-        defaultValue: 0
+        type: Sequelize.STRING
     },
     email: {
-        type: Sequelize.STRING,
-        defaultValue: ''
+        type: Sequelize.STRING
     },
     password: {
-        allowNull: true,
         type: Sequelize.STRING
     },
     mistakes: {
@@ -30,6 +31,14 @@ const User = db.define('User', {
     },
     waitingTime: {
         type: Sequelize.INTEGER,
+        defaultValue: 0
+    },
+    createdAt: {
+        type: Sequelize.DATE,
+        defaultValue: 0
+    },
+    updatedAt: {
+        type: Sequelize.DATE,
         defaultValue: 0
     }
 });
