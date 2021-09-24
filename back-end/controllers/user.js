@@ -25,3 +25,14 @@ exports.singUp = (req, res, next) => {
         .catch((err) => res.status(500).json({ message: 'Fail to hash ' + err }));
     
 }
+
+exports.login = (req, res, next) => {
+
+    User.findOne({ attributes: ['email'] })
+        .then((user) => {
+            console.log(user);
+            req.status(200).json({ message: 'c ok'});
+        })
+        .catch((err) => req.status(500).json({ message: 'ça marche pas  ' + err}))
+
+}
