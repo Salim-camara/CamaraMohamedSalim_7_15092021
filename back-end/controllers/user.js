@@ -26,13 +26,24 @@ exports.singUp = (req, res, next) => {
     
 }
 
+// Middlexare de connexion
 exports.login = (req, res, next) => {
 
-    User.findOne({ attributes: ['email'] })
+    User.findOne({ where: { email: req.body.email } })
         .then((user) => {
-            console.log(user);
-            req.status(200).json({ message: 'c ok'});
+            let mdp = user.dataValues.password;
+            // Test de comparaison du mdp
+            bcrypt.compare(req.body.password, mdp)
+                .then((password) => {
+                    if(password) {
+                        console.log('Mot de passe correct, connexion en cours');
+                        res.status(200).json({ message: 'Mot de passe correct, connexion en cours' });
+                    } else {
+                        console.log('Mot de passe incorrect');
+                        res.status(401).json({ message: 'Mot de passe incorrect'});
+                    }
+                })
+                .catch((err) => res.status(500).json({ message: 'Erreur récupération du mot de passe  ' + err}));
         })
-        .catch((err) => req.status(500).json({ message: 'ça marche pas  ' + err}))
-
+        .catch((err) => res.status(500).json({ message: `Cette addresse email n'existe pas` + err}))
 }
