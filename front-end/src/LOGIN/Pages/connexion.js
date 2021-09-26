@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Login from '../Components/login';
 import Navigation from '../Components/nav';
 import Axios from 'axios';
+import { Link } from 'react-router-dom';
 
 
 const Connexion = () => {
@@ -36,6 +37,9 @@ const Connexion = () => {
                 <input type="text" placeholder="Mot de passe" className="form--input" value={ password } onChange={ (e) => setPassword(e.target.value) }></input>
 
                 <div className="connexion--error"></div>
+
+                {/* Accès à la page HOME */}
+                <Link to="/HOME">Accès TEMPORAIRE à la page HOME</Link>
 
                 <button className="button" type="submit">Let's go</button>
             </form>

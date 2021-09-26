@@ -1,0 +1,8 @@
+#root {
+    width: 60%;
+}
+
+body {
+    @include dsf(center);
+    background-color: lighten($color: $tertiary-color, $amount: 20%);
+}
