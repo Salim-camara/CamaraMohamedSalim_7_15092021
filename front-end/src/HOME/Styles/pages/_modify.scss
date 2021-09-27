@@ -1,0 +1,78 @@
+.modif {
+    @include dsc();
+
+    &__form {
+        @include dsc(center);
+        background-color: white;
+        box-shadow: $box-shadow;
+        margin-top: 20px;
+        align-items: flex-start;
+        width: 80%;
+        padding: 20px;
+    }
+}
+
+.nom {
+    @include dsc();
+    width: 100%;
+}
+
+.text {
+    width: 80%;
+    height: 25px;
+    border: 2px solid $primary-color;
+
+    &--prenom {
+        margin-bottom: 10px;
+    }
+}
+
+    .textarea {
+    border: 2px solid $primary-color;
+    width: 80%;
+    max-width: 90%;
+    height: 60px;
+}
+
+h2 {
+    border-bottom: 2px solid $secondary-color;
+    width: 100%;
+}
+
+.bio {
+    width: 100%;
+    @include dsc();
+}
+
+// photo de profil
+.pdp {
+    @include dsc();
+    width: 100%;
+
+    &--modify {
+        color: white;
+        background-color: lighten($primary-color, 20%);
+        border: none;
+        padding: 10px;
+        margin: 10px;
+
+    }
+    &--delete {
+        color: white;
+        background-color: darken($secondary-color, 10%);
+        border: none;
+        padding: 10px;
+        margin: 10px;
+    }
+
+    &--img {
+        width: 150px;
+        height: 150px;
+        border-radius: 50% 50%;
+    }
+
+}
+
+// date de naissance
+
+
