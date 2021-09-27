@@ -27,11 +27,11 @@
     }
 }
 
-    .textarea {
-    border: 2px solid $primary-color;
-    width: 80%;
-    max-width: 90%;
-    height: 60px;
+.textarea {
+border: 2px solid $primary-color;
+width: 80%;
+max-width: 90%;
+height: 60px;
 }
 
 h2 {
@@ -56,6 +56,11 @@ h2 {
         padding: 10px;
         margin: 10px;
 
+        &:hover {
+            background-color: lighten($primary-color, 30%);
+            cursor: pointer;
+        }
+
     }
     &--delete {
         color: white;
@@ -63,6 +68,11 @@ h2 {
         border: none;
         padding: 10px;
         margin: 10px;
+
+        &:hover {
+            background-color: darken($secondary-color, 5%);
+            cursor: pointer;
+        }
     }
 
     &--img {
@@ -74,5 +84,41 @@ h2 {
 }
 
 // date de naissance
+.birth {
+    @include dsc();
+    width: 100%;
+}
+
+.sexe__right {
+    @include dsf();
+    align-items: baseline;
+    font-size: 22px;
+}
+
+.sexe__all {
+    @include dsf();
+    align-items: baseline;
+    margin-left: 10px;
+}
+
+// bouton de validation
+.button__container {
+    @include dsf(center);
+    width: 100%;
+}
+
+.validation {
+    width: 25%;
+    background-color: green;
+    color: white;
+    border: none;
+    padding: 15px;
+    font-size: 15px;
+
+    &:hover {
+        background-color: lighten(green, 5%);
+        cursor: pointer;
+    }
+}
 
 

@@ -41,6 +41,7 @@ const Modify = () => {
                     <input type="date" className="text"></input>
 
                     <div className="sexe__right">
+                        <p>Sexe :</p>
                         {/* garçon */}
                         <div className="sexe__m sexe__all">
                             <label value="m" className="sexe--label">M</label>
@@ -55,7 +56,9 @@ const Modify = () => {
                 </div>
                 
                 {/* Bouton de confirmation */}
-                <button type="submit" className="validation">Valider</button>
+                <div className="button__container">
+                    <button type="submit" className="validation">Valider</button>
+                </div>
 
             </form>
 
