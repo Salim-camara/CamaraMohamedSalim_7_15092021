@@ -1,15 +1,41 @@
 import React from "react";
 import Navigation from "../Components/nav";
-import Pdp from "../../img/lama.png"
+import Axios from "axios";
+import Pdp from "../../img/lama.png";
 
 const Modify = () => {
+
+    // variable des inputs
+    // const [prenom, setPrenom] = useState('');
+    // const [nom, setNom] = useState('');
+    // const [date, setDate] = useState('');
+    // const [radio, setRadio] = useState(null);
+    // const [email, setEmail] = useState('');
+    // const [password, setPassword] = useState('');
+    // const [bio, setBio] = useState('');
+
+    let url = 'http://localhost:3001/profils'
+
+    function getData(e) {
+        e.preventDefault();
+
+        Axios.get(url)
+            .then((data) => {
+                const user = data.data;
+                console.log(user);
+                // en attente de l'apprentissage de la manipulation du DOM, impossibilité de mettre la data dans les inputs
+            })
+            .catch((err) => console.log('erreur récupération axios' + err));
+    }
+
+
 
     return (
         <div className="modif">
 
             <Navigation />
 
-            <form className="modif__form">
+            <form className="modif__form" onSubmit={getData}>
 
                 {/* Nom */}
                 <div className="nom">

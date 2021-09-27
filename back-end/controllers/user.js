@@ -4,7 +4,7 @@ const User = require('../models/user');
 
 
 
-
+// $$$$$$$$$$$$$$$$$$$$$$$$$ INSCRIPTION ET CONNEXION $$$$$$$$$$$$$$$$$$$
 // Middleware d'inscription
 exports.singUp = (req, res, next) => {
 
@@ -46,4 +46,18 @@ exports.login = (req, res, next) => {
                 .catch((err) => res.status(500).json({ message: 'Erreur récupération du mot de passe  ' + err}));
         })
         .catch((err) => res.status(500).json({ message: `Cette addresse email n'existe pas` + err}))
+
+}
+// $$$$$$$$$$$$$$$$$$$$$$$$ FIN INSCRIPTION ET CONNEXION $$$$$$$$$$$$$$$$$
+
+// $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$ RECUPERATION/MODIF/DELETE USER $$$$$$$$$$$$$$$$$$$$$$$$$$$
+// Middleware GET
+exports.getUser = (req, res, next) => {
+
+    User.findOne({ where: { user_id: '11' }})
+        .then((data) => {
+            console.log(data);
+            res.status(200).json(data.dataValues);
+        })
+        .catch((err) => res.status(404).json({ message: 'utilisateur introuvable ! ' + err}));
 }
