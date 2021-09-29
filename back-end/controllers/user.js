@@ -26,7 +26,7 @@ exports.singUp = (req, res, next) => {
     
 }
 
-// Middlexare de connexion
+// Middleware de connexion
 exports.login = (req, res, next) => {
 
     User.findOne({ where: { email: req.body.email } })
@@ -61,3 +61,15 @@ exports.getUser = (req, res, next) => {
         })
         .catch((err) => res.status(404).json({ message: 'utilisateur introuvable ! ' + err}));
 }
+
+exports.updateUser = (req, res, next) => {
+
+    User.update({bio: 'bio qui déchire'}, { where: { user_id: '11' }})
+        .then(() => {
+            console.log(req.body);
+            res.status(200).json({ message: 'bonjour'});
+        })
+        .catch(() => res.status(500));
+}
+
+

@@ -27,10 +27,12 @@ const Inscription = () => {
     const refEmail = React.useRef(null);
     const refPassword = React.useRef(null);
 
+    const [test, setTest] = useState('bonjour');
+
     // test
     const REGEXinput = [
         {
-            element: refNom,
+            element: test,
             regex: /^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$/,
             error: 'Veuillez saisir un nom valide'
         },
@@ -68,6 +70,9 @@ const Inscription = () => {
             
             if(!rule.regex.test(element)) {
                 console.log(rule.error);
+                // test
+                
+
                 allTest = false;
 
             } else if(date == '' || radio == null) {
@@ -106,8 +111,8 @@ const Inscription = () => {
                     {/* bloc information */}
                     <input type="text" placeholder="Nom" className="form--nom" ref={ refNom } value={ nom } onChange={ (e) => setNom(e.target.value) }></input>
                     <p className="error patate">Veuillez entrer un nom valide</p>
-                    <input type="text" placeholder="Prenom" className="form--nom" value={ prenom } ref={ refPrenom } onChange={ (e) => setPrenom(e.target.value) }></input>
-                    
+                    <input type="text" placeholder="Prenom" className="form--nom" value={ prenom } ref={ refPrenom } onChange={ (e) => setPrenom(e.target.value) }></input> 
+                    { test }         
                 
 
                     <div className="form__birth">

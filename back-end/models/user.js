@@ -30,6 +30,9 @@ const User = db.define('User', {
         type: Sequelize.INTEGER,
         defaultValue: 0
     },
+    bio: {
+        type: Sequelize.STRING
+    },
     waitingTime: {
         type: Sequelize.INTEGER,
         defaultValue: 0

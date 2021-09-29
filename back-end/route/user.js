@@ -9,6 +9,8 @@ router.post('/inscription', userControl.singUp);
 router.post('/connexion', userControl.login);
 // route de récupération du user
 router.get('/profils', userControl.getUser);
+// route de modification user
+router.put('/profils', userControl.updateUser);
 
 
 module.exports = router;
