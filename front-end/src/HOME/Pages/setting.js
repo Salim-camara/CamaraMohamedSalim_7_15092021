@@ -1,12 +1,14 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Navigation from "../Components/nav";
 import PdP from "../../img/lama.png";
 import Axios from "axios";
+import { useHistory } from "react-router-dom";
 
 const Setting = () => {
 
     // création des différentes variables
     const url = 'http://localhost:3001/profils'
+    const historique = useHistory();
 
     const [name, setName] = useState('');
     const [birth, setBirth] = useState('');
@@ -14,8 +16,8 @@ const Setting = () => {
     const [bio, setBio] = useState('');
 
 
-
-    Axios.get(url)
+    useEffect(() => { 
+        Axios.get(url)
         .then((profil) => {
             const data = profil.data;
             setName( `${data.firstname} ${data.lastname}` );
@@ -29,7 +31,9 @@ const Setting = () => {
             }
 
         })
-        .catch((err) => console.log(err));   
+        .catch((err) => console.log(err)); 
+    }, []);
+      
     
     return(
         <div className="set">
@@ -57,7 +61,7 @@ const Setting = () => {
                         <h2>{ bio }</h2>
                     </div>
                     <div className="right__button">
-                        <button className="right__button--modify button">Modifier</button>
+                        <button className="right__button--modify button" onClick={ () => historique.push('/modify')}>Modifier</button>
                         <button className="right__button--delete button">Supprimer</button>
                     </div>
 

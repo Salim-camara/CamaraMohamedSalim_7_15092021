@@ -1,6 +1,6 @@
 .set{
-    background-color: $primary-color;
-    width: 100%;
+    background-color: coral;
+    width: 60%;
 }
 .container {
     @include dsf();
@@ -8,7 +8,7 @@
     box-shadow: $box-shadow;
     width: 100%;
     height: 450px;
-    margin-top: 20px;
+    margin-top: 20px; 
 }
 
 // partie PDP
@@ -70,12 +70,15 @@
     }
 
     &__button {
+        @include dsf();
         
         &--modify {
             color: white;
             background-color: lighten($primary-color, 20%);
             border: none;
             border-radius: 5px 5px 5px 5px;
+            margin-top: 10px;
+            height: 40px;
 
             &:hover {
                 cursor: pointer;
@@ -88,6 +91,8 @@
             border-radius: 5px 5px 5px 5px;
             border: none;
             margin-left: 10px;
+            margin-top: 10px;
+            height: 40px;
 
             &:hover {
                 cursor: pointer;
@@ -95,9 +100,4 @@
             }
         }
     }
-}
-
-.button {
-    margin-top: 10px;
-    height: 40px;
 }

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Login from '../Components/login';
 import Navigation from '../Components/nav';
 import Axios from 'axios';
-import { Link } from 'react-router-dom';
+import { Link, Redirect, useHistory } from 'react-router-dom';
 
 
 const Connexion = () => {
@@ -10,18 +10,24 @@ const Connexion = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
-    const url = 'http://localhost:3001/connexion'
+    const url = 'http://localhost:3001/connexion';
+
+    const historique = useHistory();
 
     function handleSubmit(e) {
          e.preventDefault();
-         console.log(email, password)
+         console.log(email, password);
+          
 
          Axios.post(url, {
                 email: email,
                 password: password
          })
-            .then(() => console.log('les données ont été envoyées'))
-            .catch((err) => console.log('les données nont pas été envoyées'));
+            .then(() => {
+                console.log('les données ont été envoyées')
+                historique.push('/profils');
+            })
+            .catch((err) => console.log('les données nont pas été envoyées ' + err));
 
     }
 
@@ -39,7 +45,7 @@ const Connexion = () => {
                 <div className="connexion--error"></div>
 
                 {/* Accès à la page HOME */}
-                <Link to="/HOME">Accès TEMPORAIRE à la page HOME</Link>
+                <Link to="/profils">Accès TEMPORAIRE à la page HOME</Link>
 
                 <button className="button" type="submit">Let's go</button>
             </form>

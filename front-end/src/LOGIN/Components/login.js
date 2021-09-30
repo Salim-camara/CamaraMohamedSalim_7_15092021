@@ -10,9 +10,9 @@ const Login = () => {
     return (
         <div className="login">
 
-            <form className="form">
-                <input type="text" placeholder="Email" className="form--input" value={ email } onChange={ (e) => setEmail(e.target.value) }></input>
-                <input type="text" placeholder="Mot de passe" className="form--input" value={ password } onChange={ (e) => setPassword(e.target.value) }></input>
+            <form className="form_-_login">
+                <input type="text" placeholder="Email" className="form_-_login--input" value={ email } onChange={ (e) => setEmail(e.target.value) }></input>
+                <input type="text" placeholder="Mot de passe" className="form_-_login--input" value={ password } onChange={ (e) => setPassword(e.target.value) }></input>
             </form>
 
             <div className="connexion--error"></div>

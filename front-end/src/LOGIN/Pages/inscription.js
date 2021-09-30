@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import Navigation from '../Components/nav';
-import Login from '../Components/login';
 import Axios from 'axios';
-const REGEX = require('../service/config');
+import { useHistory } from 'react-router-dom';
+
 
 const Inscription = () => {
 
@@ -16,6 +16,7 @@ const Inscription = () => {
 
     // Mise en place d'axios
     const url = 'http://localhost:3001/inscription';
+    const historique = useHistory();
 
 
 // $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$ Validation des formulaire avant le POST, impossibilité d'exporté le tableau REGEX$$$$$$$$$$$$$$$$$$$
@@ -32,7 +33,7 @@ const Inscription = () => {
     // test
     const REGEXinput = [
         {
-            element: test,
+            element: refNom,
             regex: /^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$/,
             error: 'Veuillez saisir un nom valide'
         },
@@ -93,7 +94,10 @@ const Inscription = () => {
                 email: email,
                 password: password
                 })
-                    .then(() => console.log('Les données ont bien été envoyéés'))
+                    .then(() => {
+                        console.log('Les données ont bien été envoyéés');
+                        historique.push('/profils');
+                    })
                     .catch((err) => err + 'Les données ne sont pas envoyés');
         }
     }
