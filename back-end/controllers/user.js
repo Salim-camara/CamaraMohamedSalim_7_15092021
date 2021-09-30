@@ -1,6 +1,7 @@
 // importration de indispensables
 const bcrypt = require('bcrypt');
 const User = require('../models/user');
+const multer = require('../middlewares/multer');
 
 
 
@@ -62,14 +63,20 @@ exports.getUser = (req, res, next) => {
         .catch((err) => res.status(404).json({ message: 'utilisateur introuvable ! ' + err}));
 }
 
+// Middleware PUT
 exports.updateUser = (req, res, next) => {
 
-    User.update({bio: 'bio qui déchire'}, { where: { user_id: '11' }})
-        .then(() => {
-            console.log(req.body);
-            res.status(200).json({ message: 'bonjour'});
-        })
-        .catch(() => res.status(500));
+    User.update(
+        {bio: req.body.bio,
+         lastname: req.body.lastname,
+         firstname: req.body.firstname,
+         sexe: req.body.sexe,
+         birth: req.body.birth},
+        { where: { user_id: '11' }})
+            .then(() => {
+                res.status(200).json({ message: 'les modifications ont bien été enregistrées'});
+            })
+            .catch((err) => res.status(500).json({ message: 'erreur 500 lors de la modification ' + err}));
 }
 
 

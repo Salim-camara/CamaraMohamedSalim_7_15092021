@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Navigation from "../Components/nav";
 import Axios from "axios";
 import Pdp from "../../img/lama.png";
@@ -11,27 +11,45 @@ const Modify = () => {
     const [date, setDate] = useState('');
     const [radio, setRadio] = useState(null);
     const [bio, setBio] = useState('');
+    const [pdpUrl, setPdpUrl] = useState('');
 
-    let url = 'http://localhost:3001/profils'
+    let url = 'http://localhost:3001/profils';
 
-    function getData(e) {
-        e.preventDefault();
-
+    useEffect(() => {
         Axios.get(url)
             .then((data) => {
                 const user = data.data;
-                console.log(user);
+                // injection de la data dans les inputs
+                setPrenom(user.firstname);
+                setNom(user.lastname);
+                setDate(user.birth);
+                setRadio(user.sexe);
+                setBio(user.bio);
                 // en attente de l'apprentissage de la manipulation du DOM, impossibilité de mettre la data dans les inputs
+                console.log('****************************');
+                console.log(radio);
             })
             .catch((err) => console.log('erreur récupération axios' + err));
-    }
+    }, []);
+
+    
 
     function post(e) {
         e.preventDefault();
 
-        Axios.put(url, {
-            bio: bio
-        })
+        if(radio == null) {
+            console.log('veuillez indiquer votre sexe')
+        } else {
+
+            Axios.put(url, {
+                bio: bio,
+                firstname: prenom,
+                lastname: nom,
+                sexe: radio,
+                birth: date
+
+            })
+        }
 
 
     }
@@ -43,7 +61,7 @@ const Modify = () => {
 
             <Navigation />
 
-            <form className="modif__form" onSubmit={getData}>
+            <form className="modif__form">
 
                 {/* Nom */}
                 <div className="nom">
