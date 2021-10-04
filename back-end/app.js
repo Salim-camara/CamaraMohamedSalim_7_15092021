@@ -3,6 +3,7 @@ const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
 const userRoute = require('./route/user');
+const postsRoute = require('./route/post');
 const User = require('./models/user');
 
 // autorisation de toutes du CORS
@@ -18,6 +19,7 @@ app.use(bodyParser.json());
 
 // Ajout des différentes routes
 app.use('', userRoute);
+app.use('', postsRoute);
 
 
 // Exportation de app
