@@ -65,7 +65,7 @@ const Modify = () => {
 
                 {/* Nom */}
                 <div className="nom">
-                    <h2>Nom, Prénom</h2>
+                    <h2 className="h2_-_modify">Nom, Prénom</h2>
                     <input type="text" className="text text--prenom" placeholder="Prénom" value={ prenom } onChange={ (e) => setPrenom(e.target.value) }></input>
                     { prenom }
                     { radio }

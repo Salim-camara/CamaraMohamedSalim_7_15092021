@@ -1,13 +1,14 @@
 import React from "react";
 import Navigation from "../Components/nav";
+import Post from "../Components/post";
 
 const Accueil = () => {
 
     return (
-        <>
+        <div className="accueil">
             <Navigation />
-            <h1>Page newsfeed</h1>
-        </>
+            <Post />
+        </div>
     )
 }
 
