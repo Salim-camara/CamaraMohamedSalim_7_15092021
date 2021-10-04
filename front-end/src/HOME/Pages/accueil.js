@@ -4,7 +4,10 @@ import Navigation from "../Components/nav";
 const Accueil = () => {
 
     return (
-        <Navigation />
+        <>
+            <Navigation />
+            <h1>Page newsfeed</h1>
+        </>
     )
 }
 
