@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Navigation from "../Components/nav";
 import Axios from "axios";
+import Cropper from "../Components/cropper";
 import Pdp from "../../img/lama.png";
 
 const Modify = () => {
@@ -41,12 +42,15 @@ const Modify = () => {
             console.log('veuillez indiquer votre sexe')
         } else {
 
+            const img = localStorage.img;
+
             Axios.put(url, {
                 bio: bio,
                 firstname: prenom,
                 lastname: nom,
                 sexe: radio,
-                birth: date
+                birth: date,
+                imageUrl: img
 
             })
         }
@@ -81,11 +85,8 @@ const Modify = () => {
                 {/* Photo de profil */}
                 <div className="pdp">
                     <h2>Photo de profil</h2>
-                    <img src={ Pdp } className="pdp--img" />
-                    <div className="pdp__container">
-                        <button className="pdp--modify">Modifier</button>
-                        <button className="pdp--delete">Supprimer</button>
-                    </div>
+                    <Cropper />
+                    
                 </div>
 
                 {/* Sexe et date de naissance */}

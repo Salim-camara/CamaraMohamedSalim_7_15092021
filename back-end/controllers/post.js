@@ -2,15 +2,23 @@
 const Post = require('../models/posts');
 const multer = require('../middlewares/multer');
 
-exports.newPost = (res, req, next) => {
-    
-    const post = new Post ({
-        title:'bonjour',
-        // createdAt: 'bonjour',
-        // updatedAt: 'hello',
-        user_id: 'çava'
 
+// Middleware POST
+exports.newPost = (req, res) => {
+
+    const post = new Post ({
+        title: req.body.title,
+        description: req.body.description,
+        user_id: 11
     });
-    post.save();
-    console.log('fin du programme');
+    post.save()
+        .then(() => {
+            res.status(201).json({ message: 'post créé !' });
+        })
+        .catch((err) => { res.status(400).json({ message: 'post non créé' + err}) });
+}
+
+// Middleware GET
+exports.getPosts = (res, req, next) => {
+
 }

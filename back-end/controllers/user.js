@@ -2,6 +2,8 @@
 const bcrypt = require('bcrypt');
 const User = require('../models/user');
 const multer = require('../middlewares/multer');
+const { fstat } = require('fs');
+const fs = require('fs');
 
 
 
@@ -66,17 +68,28 @@ exports.getUser = (req, res, next) => {
 // Middleware PUT
 exports.updateUser = (req, res, next) => {
 
-    User.update(
-        {bio: req.body.bio,
-         lastname: req.body.lastname,
-         firstname: req.body.firstname,
-         sexe: req.body.sexe,
-         birth: req.body.birth},
-        { where: { user_id: '11' }})
-            .then(() => {
-                res.status(200).json({ message: 'les modifications ont bien été enregistrées'});
-            })
-            .catch((err) => res.status(500).json({ message: 'erreur 500 lors de la modification ' + err}));
+    console.log(req.body);
+    res.status(200).json({ message: 'jai bien reçu limage' });
+
+    // fs.writeFile("package1.json", req.body.imageUrl,{encoded: 'base64'},function(err){
+    //     if(err) {
+    //         console.log('il ya une erreur');
+    //     } else {
+    //         console.log('il nya pas dereur');
+    //     }
+    // })
+
+    // User.update(
+    //     {bio: req.body.bio,
+    //      lastname: req.body.lastname,
+    //      firstname: req.body.firstname,
+    //      sexe: req.body.sexe,
+    //      birth: req.body.birth},
+    //     { where: { user_id: '11' }})
+    //         .then(() => {
+    //             res.status(200).json({ message: 'les modifications ont bien été enregistrées'});
+    //         })
+    //         .catch((err) => res.status(500).json({ message: 'erreur 500 lors de la modification ' + err}));
 }
 
 

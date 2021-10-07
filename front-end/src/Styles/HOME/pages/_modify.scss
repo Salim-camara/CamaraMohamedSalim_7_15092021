@@ -48,6 +48,8 @@ height: 60px;
 .pdp {
     @include dsc();
     width: 100%;
+    min-height: 300px;
+    width: 100%;
 
     &--modify {
         color: white;
@@ -83,6 +85,14 @@ height: 60px;
 
 }
 
+.cropper {
+    width: 100%;
+
+    &--in {
+        width: 100%;
+        border: none;
+    }
+}
 // date de naissance
 .birth {
     @include dsc();

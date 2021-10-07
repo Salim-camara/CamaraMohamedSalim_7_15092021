@@ -14,6 +14,7 @@ const Setting = () => {
     const [birth, setBirth] = useState('');
     const [sexe, setSexe] = useState('');
     const [bio, setBio] = useState('');
+    const [photo, setPhoto] = useState(null);
 
 
     useEffect(() => { 
@@ -21,6 +22,7 @@ const Setting = () => {
         .then((profil) => {
             const data = profil.data;
             setName( `${data.firstname} ${data.lastname}` );
+            setPhoto(data.imageUrl);
             setBio(data.bio);
             setBirth(data.birth);
 
