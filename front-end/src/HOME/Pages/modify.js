@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Link, Redirect, useHistory } from 'react-router-dom';
 import Navigation from "../Components/nav";
 import Axios from "axios";
 import Cropper from "../Components/cropper";
@@ -12,7 +13,9 @@ const Modify = () => {
     const [date, setDate] = useState('');
     const [radio, setRadio] = useState(null);
     const [bio, setBio] = useState('');
-    const [pdpUrl, setPdpUrl] = useState('');
+    const [pdpUrl, setPdpUrl] = useState(null);
+
+    const historique = useHistory();
 
     let url = 'http://localhost:3001/profils';
 
@@ -26,35 +29,50 @@ const Modify = () => {
                 setDate(user.birth);
                 setRadio(user.sexe);
                 setBio(user.bio);
-                // en attente de l'apprentissage de la manipulation du DOM, impossibilité de mettre la data dans les inputs
-                console.log('****************************');
-                console.log(radio);
+                setPdpUrl(user.imageUrl);
+                localStorage.removeItem('img');
             })
             .catch((err) => console.log('erreur récupération axios' + err));
     }, []);
 
     
-
     function post(e) {
         e.preventDefault();
 
-        if(radio == null) {
-            console.log('veuillez indiquer votre sexe')
-        } else {
+        let img = localStorage.getItem('img');
 
-            const img = localStorage.img;
-
+        if (img != null) {
+            console.log('il ya une image')
             Axios.put(url, {
-                bio: bio,
                 firstname: prenom,
                 lastname: nom,
-                sexe: radio,
                 birth: date,
+                bio: bio,
+                sexe: radio,
                 imageUrl: img
-
             })
+            .then(() => {
+                console.log('les données ont bien été envoyées !');
+                historique.push('/profils')
+            })
+            .catch(() => console.log('les données nont pas été envoyées :('));
+        } else {
+            console.log('ilnya pas dimage')
+            Axios.put(url, {
+                firstname: prenom,
+                lastname: nom,
+                birth: date,
+                bio: bio,
+                sexe: radio
+            })
+            .then(() => {
+                console.log('les données ont bien été envoyées !');
+                historique.push('/profils')
+            })
+            .catch(() => console.log('les données nont pas été envoyées :('));
         }
 
+        
 
     }
 
@@ -71,27 +89,25 @@ const Modify = () => {
                 <div className="nom">
                     <h2 className="h2_-_modify">Nom, Prénom</h2>
                     <input type="text" className="text text--prenom" placeholder="Prénom" value={ prenom } onChange={ (e) => setPrenom(e.target.value) }></input>
-                    { prenom }
-                    { radio }
                     <input type="text" className="text" placeholder="Nom" value={ nom } onChange={ (e) => setNom(e.target.value) }></input>
                 </div>
 
                 {/* Bio */}
                 <div className="bio">
-                    <h2>Biographie</h2>
+                    <h2 className="h2_-_bio">Biographie</h2>
                     <textarea className="textarea" value={ bio } onChange={ (e) => setBio(e.target.value) }></textarea>
                 </div>
 
                 {/* Photo de profil */}
                 <div className="pdp">
-                    <h2>Photo de profil</h2>
+                    <h2 className="h2_-_pdp">Photo de profil actuel</h2>
+                    <img src={ pdpUrl }  className="pdp--img"/>
                     <Cropper />
-                    
                 </div>
 
                 {/* Sexe et date de naissance */}
                 <div className="birth">
-                    <h2>Date de naissance</h2>
+                    <h2 className="h2_-_birth">Date de naissance</h2>
                     
                     <input type="date" className="text" value={ date } onChange={ (e) => setDate(e.target.value) }></input>
 
@@ -112,8 +128,7 @@ const Modify = () => {
                 
                 {/* Bouton de confirmation */}
                 <div className="button__container">
-                    <button type="submit" className="validation">Valider</button>
-                    <button onClick={ post } className="validation">POST tempo</button>
+                    <button onClick={ post } className="validation">Valider</button>
                 </div>
 
             </form>

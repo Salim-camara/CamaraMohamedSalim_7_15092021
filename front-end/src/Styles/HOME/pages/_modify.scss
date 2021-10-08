@@ -1,5 +1,6 @@
 .modif {
     @include dsc();
+    width: 60%;
 
     &__form {
         @include dsc(center);
@@ -7,8 +8,7 @@
         box-shadow: $box-shadow;
         margin-top: 20px;
         align-items: flex-start;
-        width: 80%;
-        padding: 20px;
+        width: 100%;
     }
 }
 
@@ -17,8 +17,9 @@
     width: 100%;
 }
 
+
 .text {
-    width: 80%;
+    width: 90%;
     height: 25px;
     border: 2px solid $primary-color;
 
@@ -29,15 +30,34 @@
 
 .textarea {
 border: 2px solid $primary-color;
-width: 80%;
+width: 90%;
 max-width: 90%;
 height: 60px;
 }
 
 .h2_-_modify { 
     border-bottom: 2px solid $secondary-color;
-    width: 100%;
+    display: inline-block;
+
 }
+
+.h2_-_bio { 
+    border-bottom: 2px solid $secondary-color;
+    display: inline-block;
+
+}
+
+.h2_-_pdp { 
+    border-bottom: 2px solid $secondary-color;
+    display: inline-block;
+}
+
+.h2_-_birth { 
+    border-bottom: 2px solid $secondary-color;
+    display: inline-block;
+
+}
+
 
 .bio {
     width: 100%;
@@ -51,31 +71,39 @@ height: 60px;
     min-height: 300px;
     width: 100%;
 
-    &--modify {
-        color: white;
-        background-color: lighten($primary-color, 20%);
-        border: none;
-        padding: 10px;
-        margin: 10px;
+    &__button {
 
-        &:hover {
-            background-color: lighten($primary-color, 30%);
-            cursor: pointer;
+        &--label {
+            color: white;
+            background-color: lighten($primary-color, 20%);
+            border: none;
+            padding: 10px;
+            margin: 10px;
+
+            &:hover {
+                background-color: lighten($primary-color, 25%);
+                cursor: pointer;
+            }
         }
 
-    }
-    &--delete {
-        color: white;
-        background-color: darken($secondary-color, 10%);
-        border: none;
-        padding: 10px;
-        margin: 10px;
+        &--in {
+            display: none;
+        }
 
-        &:hover {
-            background-color: darken($secondary-color, 5%);
-            cursor: pointer;
+        &--delete {
+            color: white;
+            background-color: darken($secondary-color, 10%);
+            border: none;
+            padding: 10px;
+            margin: 10px;
+    
+            &:hover {
+                background-color: darken($secondary-color, 5%);
+                cursor: pointer;
+            }
         }
     }
+    
 
     &--img {
         width: 150px;
@@ -107,7 +135,7 @@ height: 60px;
 
 .sexe__all {
     @include dsf();
-    align-items: baseline;
+    align-items: flex-start;
     margin-left: 10px;
 }
 
@@ -123,6 +151,7 @@ height: 60px;
     color: white;
     border: none;
     padding: 15px;
+    margin-bottom: 20px;
     font-size: 15px;
 
     &:hover {
