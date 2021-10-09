@@ -7,18 +7,37 @@ const Newpost = () => {
 
     const [titre, setTitre] = useState('');
     const [description, setDescription] = useState('');
-    const url = 'http://localhost:3001/posts'
+    const [image, setImage] = useState(null);
+    const url = 'http://localhost:3001/posts';
 
     const handleSubmit = (e) => {
         e.preventDefault();
         
         Axios.post(url, {
             title: titre,
-            description: description
+            description: description,
+            imageUrl: image
         })
         .then(() => console.log('les données ont bien été envoyées'))
         .catch((err) => console.log('les données nont pas été envoyées ' + err));
     }
+
+    // base64 convertisseur
+    function getBase64(e) {
+        let file = e.target.files[0];
+        var reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = function () {
+          setImage(reader.result);
+        };
+        reader.onerror = function (error) {
+          console.log('Error: ', error);
+        };
+     }
+
+     const handleImage = () => {
+         setImage(null);
+     }
 
 
 
@@ -40,8 +59,14 @@ const Newpost = () => {
                     </div>
 
                     <div className="np__form--file">
-                        <p className="np--paragraphe">Ajoutez une image !</p>
-                        <input type="file" className="np__form--file--in" accept="image/png, image/jpeg, image/jpg"></input>
+                        <label for="file_button" className="file_button--style">Ajoutez une image !</label>
+                        <input type="file" className="np__form--file--in" id="file_button" accept="image/png, image/jpeg, image/jpg" onChange={getBase64}></input>
+                        {image && (
+                            <div className="np__form--file--container">
+                                <img src={image} className="np__form--file--container--img"/>
+                                <button className="delete" onClick={handleImage}>x</button>
+                            </div>
+                        )}
                     </div>
                     <button type="submit" className="np__form--valid">Valider</button>
                 </form>
