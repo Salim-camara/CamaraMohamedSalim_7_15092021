@@ -24,9 +24,10 @@ const Setting = () => {
             setName( `${data.firstname} ${data.lastname}` );
             setPhoto(data.imageUrl);
             setBio(data.bio);
-            setBirth(data.birth);
+            setBirth(data.birth.split('-').reverse().join('-'));
+            setPhoto(data.imageUrl);
 
-            if (data.sexe == 'm') {
+            if (data.sexe == 'f') {
                 setSexe(<div><i class="fas fa-mars left__age--icon"></i></div>);
             } else {
                 setSexe(<div><i class="fas fa-venus left__age--icon--f"></i></div>);
@@ -46,7 +47,7 @@ const Setting = () => {
 
                 {/* partie PdP */}
                 <div className="left">
-                    <img src={ PdP } className="left--pdp" />
+                    <img src={ photo } className="left--pdp" />
                     <div className="left__age">
                         <p className="left__age--p">Né(e) le : { birth }</p>
                         { sexe }
