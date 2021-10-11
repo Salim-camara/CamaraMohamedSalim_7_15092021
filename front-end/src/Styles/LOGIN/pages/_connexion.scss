@@ -5,4 +5,11 @@
     box-shadow: $box-shadow;
     padding-bottom: 20px;
 
+    &--error {
+
+        &--p {
+            color: red;
+        }
+    }
 }
+

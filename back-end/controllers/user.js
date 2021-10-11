@@ -51,9 +51,9 @@ exports.login = (req, res, next) => {
                         res.status(401).json({ message: 'Mot de passe incorrect'});
                     }
                 })
-                .catch((err) => res.status(500).json({ message: 'Erreur récupération du mot de passe  ' + err}));
+                .catch((err) => res.status(500).json({ message: 'Erreur serveur'}));
         })
-        .catch((err) => res.status(500).json({ message: `Cette addresse email n'existe pas` + err}))
+        .catch((err) => res.status(404).json({ message: `Cette adresse email n'existe pas`}))
 
 }
 // $$$$$$$$$$$$$$$$$$$$$$$$ FIN INSCRIPTION ET CONNEXION $$$$$$$$$$$$$$$$$

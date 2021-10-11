@@ -9,6 +9,7 @@ const Connexion = () => {
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    // const [error, setError] = useState('');
 
     const url = 'http://localhost:3001/connexion';
 
@@ -23,11 +24,13 @@ const Connexion = () => {
                 email: email,
                 password: password
          })
-            .then(() => {
-                console.log('les données ont été envoyées')
+            .then((err) => {
                 historique.push('/profils');
             })
-            .catch((err) => console.log('les données nont pas été envoyées ' + err));
+            .catch((err) => {
+                let error = document.querySelector('#error');
+                error.innerHTML = err.response.data.message;
+            });
 
     }
 
@@ -42,10 +45,10 @@ const Connexion = () => {
                 <input type="text" placeholder="Email" className="form--input" value={ email } onChange={ (e) => setEmail(e.target.value) }></input>
                 <input type="text" placeholder="Mot de passe" className="form--input" value={ password } onChange={ (e) => setPassword(e.target.value) }></input>
 
-                <div className="connexion--error"></div>
-
-                {/* Accès à la page HOME */}
-                <Link to="/profils">Accès TEMPORAIRE à la page HOME</Link>
+                <div className="connexion--error">
+                    <p className="connexion--error--p" id="error"></p>
+                    {/* {error} */}
+                </div>
 
                 <button className="button" type="submit">Let's go</button>
             </form>
