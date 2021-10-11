@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Navigation from "../Components/nav";
 import Axios from "axios";
+import { useHistory } from "react-router";
 
 
 const Newpost = () => {
@@ -8,7 +9,9 @@ const Newpost = () => {
     const [titre, setTitre] = useState('');
     const [description, setDescription] = useState('');
     const [image, setImage] = useState(null);
+
     const url = 'http://localhost:3001/posts';
+    const historique = useHistory();
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -18,7 +21,9 @@ const Newpost = () => {
             description: description,
             imageUrl: image
         })
-        .then(() => console.log('les données ont bien été envoyées'))
+        .then(() => {
+            console.log('les données ont bien été envoyées');
+            historique.push('/accueil')})
         .catch((err) => console.log('les données nont pas été envoyées ' + err));
     }
 

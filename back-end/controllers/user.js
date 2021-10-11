@@ -1,6 +1,7 @@
 // importration de indispensables
 const bcrypt = require('bcrypt');
 const User = require('../models/user');
+const token = require('jsonwebtoken');
 const multer = require('../middlewares/multer');
 const { fstat } = require('fs');
 const fs = require('fs');
@@ -35,12 +36,16 @@ exports.login = (req, res, next) => {
     User.findOne({ where: { email: req.body.email } })
         .then((user) => {
             let mdp = user.dataValues.password;
+            const UID = user.dataValues.user_id;
+            console.log(UID);
             // Test de comparaison du mdp
             bcrypt.compare(req.body.password, mdp)
                 .then((password) => {
                     if(password) {
-                        console.log('Mot de passe correct, connexion en cours');
-                        res.status(200).json({ message: 'Mot de passe correct, connexion en cours' });
+                        res.status(200).json({
+                            userId: UID,
+                            token: 'token'
+                        });
                     } else {
                         console.log('Mot de passe incorrect');
                         res.status(401).json({ message: 'Mot de passe incorrect'});

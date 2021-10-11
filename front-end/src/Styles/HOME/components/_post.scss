@@ -29,8 +29,7 @@
     padding: 15px 0 15px 0;
 
     &--img {
-        width: 100%;
-        max-height: 350px;
+        @include dsf(center);
     }
 
     &--title {
@@ -49,4 +48,8 @@
     &--p {
         margin-left: 10px;
     }
+}
+
+.img_accueil {
+    max-width: 100%;
 }

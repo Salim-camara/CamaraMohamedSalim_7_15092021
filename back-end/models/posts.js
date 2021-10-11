@@ -4,7 +4,7 @@ const db = require('./bdd');
 
 const Post = db.define('posts', {
     id: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.INTEGER, 
         primaryKey: true
     },
     title: {
@@ -15,7 +15,7 @@ const Post = db.define('posts', {
     },
     imageUrl: {
         type: Sequelize.STRING,
-        defaultValue: 'value_temporaire_par_default'
+        defaultValue: null
     },
     user_id: {
         type: Sequelize.INTEGER
@@ -29,6 +29,11 @@ const Post = db.define('posts', {
         defaultValue: 0
     }
 });
+
+Post.associate = (models) => {
+    // associations can be defined here
+    Post.belongsTo(models.User, { foreignKey: 'user_id' });
+};
 
 
 module.exports = Post;

@@ -51,4 +51,9 @@ const User = db.define('User', {
     }
 });
 
+User.associate = (models) => {
+    // associations can be defined here
+    User.hasOne(models.Post, { onDelete: 'cascade' });
+};
+
 module.exports = User;
