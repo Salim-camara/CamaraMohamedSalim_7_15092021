@@ -4,6 +4,10 @@ import { NavLink } from 'react-router-dom';
 
 const Navigation = () => { 
 
+    const logOut = () => {
+        localStorage.removeItem('token');
+    }
+
     return(
         <div className="nav_-_home">
             <img src={ Logo } className="nav_-_home--logo"/>
@@ -17,7 +21,7 @@ const Navigation = () => {
                 <NavLink exact to="/profils" className="navlink_-_home" activeClassname="navlink_-_home--active">
                     <i class="fas fa-user-cog nav_-_home__container--icon"></i>
                 </NavLink>
-                <NavLink exact to="/" className="navlink_-_home">
+                <NavLink exact to="/" className="navlink_-_home" onClick={logOut}>
                     <i class="fas fa-sign-out-alt nav_-_home__container--icon"></i>
                 </NavLink>
             </div>

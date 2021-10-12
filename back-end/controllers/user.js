@@ -1,7 +1,7 @@
 // importration de indispensables
 const bcrypt = require('bcrypt');
 const User = require('../models/user');
-const token = require('jsonwebtoken');
+const jwt = require('jsonwebtoken');
 const multer = require('../middlewares/multer');
 const { fstat } = require('fs');
 const fs = require('fs');
@@ -24,27 +24,29 @@ exports.singUp = (req, res, next) => {
             });
             user.save()
                 .then(() => res.status(201).json({ message: 'utilisateur créé !'}))
-                .catch((error) => res.status(500).json({ message: 'Cette adresse mail est déjà urilisée !!  ' + error}));
+                .catch((error) => res.status(409).json({ message: 'Cette adresse email est déjà utilisée'}));
         })
-        .catch((err) => res.status(500).json({ message: 'Fail to hash ' + err }));
+        .catch((err) => res.status(500).json({ message: 'Erreur serveur' + err }));
     
 }
 
 // Middleware de connexion
 exports.login = (req, res, next) => {
 
-    User.findOne({ where: { email: req.body.email } })
+    User.findOne({ where: { email: req.body.email } }) 
         .then((user) => {
             let mdp = user.dataValues.password;
             const UID = user.dataValues.user_id;
-            console.log(UID);
             // Test de comparaison du mdp
             bcrypt.compare(req.body.password, mdp)
                 .then((password) => {
                     if(password) {
                         res.status(200).json({
-                            userId: UID,
-                            token: 'token'
+                            token: jwt.sign(
+                                { tokenUID: user.user_id },
+                                'CLEF_SECRETE',
+                                { expiresIn: '1h' }
+                            ) 
                         });
                     } else {
                         console.log('Mot de passe incorrect');
@@ -62,7 +64,11 @@ exports.login = (req, res, next) => {
 // Middleware GET
 exports.getUser = (req, res, next) => {
 
-    User.findOne({ where: { user_id: '11' }})
+    const userToken = req.headers.authorization.split(' ')[1];
+    const decodedToken = jwt.verify(userToken, 'CLEF_SECRETE');
+    const userId = decodedToken.tokenUID;
+
+    User.findOne({ where: { user_id: userId }})
         .then((data) => {
             res.status(200).json(data.dataValues);
         })

@@ -9,6 +9,7 @@ const Setting = () => {
     // création des différentes variables
     const url = 'http://localhost:3001/profils'
     const historique = useHistory();
+    const token = localStorage.getItem('token');
 
     const [name, setName] = useState('');
     const [birth, setBirth] = useState('');
@@ -18,23 +19,34 @@ const Setting = () => {
 
 
     useEffect(() => { 
-        Axios.get(url)
-        .then((profil) => {
-            const data = profil.data;
-            setName( `${data.firstname} ${data.lastname}` );
-            setPhoto(data.imageUrl);
-            setBio(data.bio);
-            setBirth(data.birth.split('-').reverse().join('-'));
-            setPhoto(data.imageUrl);
 
-            if (data.sexe == 'f') {
-                setSexe(<div><i class="fas fa-mars left__age--icon"></i></div>);
-            } else {
-                setSexe(<div><i class="fas fa-venus left__age--icon--f"></i></div>);
-            }
+        // test du token
+        if (!token) {
+            historique.push('/error');
+        } else {
+            Axios.get(url, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }})
+                    .then((profil) => {
+                        const data = profil.data;
+                        setName( `${data.firstname} ${data.lastname}` );
+                        setPhoto(data.imageUrl);
+                        setBio(data.bio);
+                        setBirth(data.birth.split('-').reverse().join('-'));
+                        setPhoto(data.imageUrl);
+            
+                        if (data.sexe == 'f') {
+                            setSexe(<div><i class="fas fa-mars left__age--icon"></i></div>);
+                        } else {
+                            setSexe(<div><i class="fas fa-venus left__age--icon--f"></i></div>);
+                        }
+            
+                    })
+                    .catch((err) => console.log(err));
+        }
 
-        })
-        .catch((err) => console.log(err)); 
+         
     }, []);
       
     

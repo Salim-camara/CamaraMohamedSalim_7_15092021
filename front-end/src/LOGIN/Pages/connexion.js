@@ -24,7 +24,9 @@ const Connexion = () => {
                 email: email,
                 password: password
          })
-            .then((err) => {
+            .then((data) => {
+                let token = data.data.token;
+                localStorage.setItem('token', token);
                 historique.push('/profils');
             })
             .catch((err) => {

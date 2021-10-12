@@ -5,6 +5,7 @@ const bodyParser = require('body-parser');
 const userRoute = require('./route/user');
 const postsRoute = require('./route/post');
 const path = require('path');
+const Sequelize = require('./models/bdd');
 const User = require('./models/user');
 
 // autorisation de toutes du CORS
@@ -24,6 +25,9 @@ app.use('', postsRoute);
 
 // configuration vers le dossier image
 app.use('/images', express.static(path.join(__dirname, 'images')));
+
+// sequelize
+Sequelize.sync({ alter: true });
 
 
 // Exportation de app

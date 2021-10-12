@@ -12,6 +12,11 @@ const Newpost = () => {
 
     const url = 'http://localhost:3001/posts';
     const historique = useHistory();
+    const token = localStorage.getItem('token');
+
+    if(!token) {
+        historique.push('/error');
+    }
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -20,6 +25,10 @@ const Newpost = () => {
             title: titre,
             description: description,
             imageUrl: image
+        }, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
         })
         .then(() => {
             console.log('les données ont bien été envoyées');

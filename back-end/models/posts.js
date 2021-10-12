@@ -1,10 +1,11 @@
 const { DATE } = require('sequelize');
-const Sequelize = require('sequelize');
+const { Sequelize, DataTypes } = require('sequelize');
+const User = require('./user');
 const db = require('./bdd');
 
 const Post = db.define('posts', {
     id: {
-        type: Sequelize.INTEGER, 
+        type: Sequelize.INTEGER,  
         primaryKey: true
     },
     title: {
@@ -14,26 +15,27 @@ const Post = db.define('posts', {
         type: Sequelize.STRING
     },
     imageUrl: {
-        type: Sequelize.STRING,
+        type: Sequelize.TEXT('long'),
         defaultValue: null
     },
-    user_id: {
-        type: Sequelize.INTEGER
+    user_id: { 
+        type: Sequelize.INTEGER,
+        allowNull: false
     },
     createdAt: {
         type: Sequelize.DATE,
-        defaultValue: 0
+        defaultValue: DataTypes.NOW,
+        allowNull: false
     },
     updatedAt: {
         type: Sequelize.DATE,
-        defaultValue: 0
+        defaultValue: DataTypes.NOW,
+        allowNull: false
     }
 });
 
-Post.associate = (models) => {
-    // associations can be defined here
-    Post.belongsTo(models.User, { foreignKey: 'user_id' });
-};
+
+Post.belongsTo(User, { foreignKey: 'user_id' });
 
 
 module.exports = Post;

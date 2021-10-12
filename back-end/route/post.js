@@ -6,8 +6,8 @@ const multer = require('../middlewares/multer');
 
 
 // route création d'un nouveau post
-router.post('/posts', postControl.newPost)
+router.post('/posts', auth, postControl.newPost)
 // route récupération de tous les posts
-router.get('/posts', postControl.getPosts)
+router.get('/posts', auth, postControl.getPosts)
 
 module.exports = router;

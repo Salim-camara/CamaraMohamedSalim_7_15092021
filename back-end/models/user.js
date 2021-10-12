@@ -1,5 +1,5 @@
 const { DATE } = require('sequelize');
-const Sequelize = require('sequelize');
+const { Sequelize, DataTypes } = require('sequelize');
 const db = require('./bdd');
 
 const User = db.define('User', {
@@ -34,7 +34,7 @@ const User = db.define('User', {
         type: Sequelize.STRING
     },
     imageUrl: {
-        type: Sequelize.STRING,
+        type: Sequelize.TEXT('long'),
         defaultValue: 'http://localhost/3001/images/defaultskin.png'
     },
     waitingTime: {
@@ -43,11 +43,13 @@ const User = db.define('User', {
     },
     createdAt: {
         type: Sequelize.DATE,
-        defaultValue: 0
+        defaultValue: DataTypes.NOW,
+        allowNull: false
     },
     updatedAt: {
         type: Sequelize.DATE,
-        defaultValue: 0
+        defaultValue: DataTypes.NOW,
+        allowNull: false
     }
 });
 

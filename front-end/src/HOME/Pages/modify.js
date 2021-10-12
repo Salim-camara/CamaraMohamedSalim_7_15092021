@@ -16,23 +16,33 @@ const Modify = () => {
     const [pdpUrl, setPdpUrl] = useState(null);
 
     const historique = useHistory();
+    const token = localStorage.getItem('token');
 
     let url = 'http://localhost:3001/profils';
 
     useEffect(() => {
-        Axios.get(url)
-            .then((data) => {
-                const user = data.data;
-                // injection de la data dans les inputs
-                setPrenom(user.firstname);
-                setNom(user.lastname);
-                setDate(user.birth);
-                setRadio(user.sexe);
-                setBio(user.bio);
-                setPdpUrl(user.imageUrl);
-                localStorage.removeItem('img');
-            })
-            .catch((err) => console.log('erreur récupération axios' + err));
+
+        if (!token) {
+            historique.push('/error');
+        } else {
+            Axios.get(url, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }})
+                    .then((data) => {
+                        const user = data.data;
+                        // injection de la data dans les inputs
+                        setPrenom(user.firstname);
+                        setNom(user.lastname);
+                        setDate(user.birth);
+                        setRadio(user.sexe);
+                        setBio(user.bio);
+                        setPdpUrl(user.imageUrl);
+                        localStorage.removeItem('img');
+                    })
+                    .catch((err) => console.log('erreur récupération axios' + err));
+        }
+        
     }, []);
 
     
