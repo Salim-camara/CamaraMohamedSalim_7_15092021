@@ -94,8 +94,19 @@ exports.updateUser = (req, res) => {
                 res.status(200).json({ message: 'les modifications ont bien été enregistrées'});
             })
             .catch((err) => res.status(500).json({ message: 'erreur 500 lors de la modification ' + err}));
-
     
+}
+
+// middleware DELETE
+exports.deleteUser = (req, res) => {
+    
+    const userToken = req.headers.authorization.split(' ')[1];
+    const decodedToken = jwt.verify(userToken, 'CLEF_SECRETE');
+    const userId = decodedToken.tokenUID;
+    
+    User.destroy({ where: { user_id: userId }})
+        .then(() => res.status(203).json({ message: 'votre compte a correctement été suprimé'}))
+        .catch((err) => res.status(500).json({ message: err}));
 }
 
 

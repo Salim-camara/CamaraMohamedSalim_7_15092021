@@ -13,6 +13,8 @@ router.post('/connexion', userControl.login);
 router.get('/profils', auth, userControl.getUser);
 // route de modification user
 router.put('/profils', userControl.updateUser);
+// route de supression de compte
+router.delete('/profils', auth, userControl.deleteUser);
 
 
 module.exports = router;

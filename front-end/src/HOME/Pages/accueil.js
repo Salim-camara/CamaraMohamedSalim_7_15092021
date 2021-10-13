@@ -67,8 +67,10 @@ const Accueil = () => {
 
     const handleDelete = (e) => {
         const postId = e.target.value;
-        Axios.delete(url, {params: {foo: 'bar'}})
-            .then(() => console.log('post correctement supprimer'))
+        Axios.delete(url, { data: { postId: postId } })
+            .then(() => {
+                console.log('post correctement supprimer');
+                window.location.reload();})
             .catch((err) => console.log(err));
     }
 

@@ -12,7 +12,7 @@ const Post = db.define('posts', {
         type: Sequelize.STRING
     },
     description: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING(255)
     },
     imageUrl: {
         type: Sequelize.TEXT('long'),

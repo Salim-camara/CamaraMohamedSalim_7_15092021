@@ -1,8 +1,9 @@
 const { DATE } = require('sequelize');
 const { Sequelize, DataTypes } = require('sequelize');
+// const Post = require('./posts');
 const db = require('./bdd');
 
-const User = db.define('User', {
+const User = db.define('users', {
     user_id: {
         primaryKey: true,
         type: Sequelize.INTEGER

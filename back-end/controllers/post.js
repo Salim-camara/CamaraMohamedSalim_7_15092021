@@ -45,6 +45,8 @@ exports.getPosts = (req, res) => {
 // Middleware DELETE
 exports.deletePost = (req, res) => {
 
-    console.log(req.params);
-    res.status(203).json({message: 'ok'})
+    const postId = req.body.postId
+    Post.destroy({ where: { id: postId }})
+        .then(() => res.status(203).json({ message: 'Post correctement supprimer'}))
+        .catch(() => res.status(500).json({ message: 'Post non supprimer'}));
 }

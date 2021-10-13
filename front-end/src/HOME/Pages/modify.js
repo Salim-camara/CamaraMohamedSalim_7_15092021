@@ -87,9 +87,6 @@ const Modify = () => {
             })
             .catch(() => console.log('les données nont pas été envoyées :('));
         }
-
-        
-
     }
 
 

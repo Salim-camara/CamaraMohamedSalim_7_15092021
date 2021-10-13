@@ -34,7 +34,12 @@ const Setting = () => {
                         setPhoto(data.imageUrl);
                         setBio(data.bio);
                         setBirth(data.birth.split('-').reverse().join('-'));
-                        setPhoto(data.imageUrl);
+                        if(data.imageUrl != null) {
+                            setPhoto(data.imageUrl);
+                        } else {
+                            setPhoto('http://localhost:3001/images/defaultskin.png');
+                        }
+                        
             
                         if (data.sexe == 'f') {
                             setSexe(<div><i class="fas fa-mars left__age--icon"></i></div>);
@@ -48,6 +53,24 @@ const Setting = () => {
 
          
     }, []);
+
+    // supression de compte
+    const handleDelete = () => {
+        
+        if(window.confirm('Etes-vous s^r de vouloir faire ça, votre compte ainsi que vos posts seront définitivement supprimer !')) {
+            Axios.delete(url, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }})
+                    .then(() => {
+                        localStorage.removeItem('token')
+                        historique.push('/')
+                    })
+                    .catch((err) => console.log(err));
+        } else {
+            window.location.reload();
+        }
+    }
       
     
     return(
@@ -77,7 +100,7 @@ const Setting = () => {
                     </div>
                     <div className="right__button">
                         <button className="right__button--modify button" onClick={ () => historique.push('/modify')}>Modifier</button>
-                        <button className="right__button--delete button">Supprimer</button>
+                        <button className="right__button--delete button" onClick={handleDelete}>Supprimer</button>
                     </div>
 
                 </div>
