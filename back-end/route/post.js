@@ -9,5 +9,7 @@ const multer = require('../middlewares/multer');
 router.post('/posts', auth, postControl.newPost)
 // route récupération de tous les posts
 router.get('/posts', auth, postControl.getPosts)
+// route de supression
+router.delete('/posts', postControl.deletePost);
 
 module.exports = router;

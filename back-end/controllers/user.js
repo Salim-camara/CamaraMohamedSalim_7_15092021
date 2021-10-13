@@ -78,6 +78,10 @@ exports.getUser = (req, res, next) => {
 // Middleware PUT
 exports.updateUser = (req, res) => {
 
+    const userToken = req.headers.authorization.split(' ')[1];
+    const decodedToken = jwt.verify(userToken, 'CLEF_SECRETE');
+    const userId = decodedToken.tokenUID;
+
     User.update(
         {bio: req.body.bio,
          lastname: req.body.lastname,
@@ -85,7 +89,7 @@ exports.updateUser = (req, res) => {
          sexe: req.body.sexe,
          birth: req.body.birth,
         imageUrl: req.body.imageUrl},
-        { where: { user_id: '11' }})
+        { where: { user_id: userId }})
             .then(() => {
                 res.status(200).json({ message: 'les modifications ont bien été enregistrées'});
             })

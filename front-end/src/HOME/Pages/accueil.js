@@ -27,15 +27,19 @@ const Accueil = () => {
                 .then((res) => {
                     data = res.data.data;
                     const userId = res.data.userId;
+                    console.log('on est bien dans la map')
 
                     
                     setAllPosts(data.map((post) => (
                         <div className="post">
                                 {/* user */}
                                 <div className="post__user">
-                                    <h2 className="post__user--name">Lamasticot</h2>
+                                    <div className="user_container">
+                                        <img src={post.User.imageUrl} className="user_pdp" />
+                                        <h2 className="user_name">{post.User.firstname} {post.User.lastname}</h2>
+                                    </div>
                                     {post.user_id === userId && (
-                                        <div>X</div>
+                                        <button className="post_delete" value={post.id} onClick={handleDelete}>x</button>
                                     )}
                                 </div>
                                 {/* contenu */}
@@ -46,7 +50,7 @@ const Accueil = () => {
                                             <img src={post.imageUrl} className="img_accueil"/>
                                         </div>
                                     )}
-                                    <p className="post__content--desc">Le Lorem Ipsum est simplement du faux texte employé dans la composition et la mise en page avant impression. Le Lorem Ipsum est le faux texte standard de l'imprimerie depuis les années 1500, quand un imprimeur anonyme assembla ensemble des morceaux de texte pour réaliser un livre spécimen de polices de texte. Il n'a pas fait que survivre cinq siècles, mais s'est aussi adapté à la bureautique informatique, sans que son contenu n'en soit modifié. Il a été popularisé dans les années 1960 grâce à la vente de feuilles Letraset contenant des passages du Lorem Ipsum, et, plus récemment, par son inclusion dans des applications de mise en page de texte, comme Aldus PageMaker.</p>
+                                    <p className="post__content--desc">{post.description}</p>
                                 </div>
                                 {/* likes */}
                                 <div className="post__likes">
@@ -60,6 +64,13 @@ const Accueil = () => {
                 .catch((err) => err);
         }
     },[]);
+
+    const handleDelete = (e) => {
+        const postId = e.target.value;
+        Axios.delete(url, {params: {foo: 'bar'}})
+            .then(() => console.log('post correctement supprimer'))
+            .catch((err) => console.log(err));
+    }
 
     
 

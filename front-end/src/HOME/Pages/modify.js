@@ -60,7 +60,10 @@ const Modify = () => {
                 bio: bio,
                 sexe: radio,
                 imageUrl: img
-            })
+            }, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }})
             .then(() => {
                 console.log('les données ont bien été envoyées !');
                 historique.push('/profils')
@@ -74,7 +77,10 @@ const Modify = () => {
                 birth: date,
                 bio: bio,
                 sexe: radio
-            })
+            }, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }})
             .then(() => {
                 console.log('les données ont bien été envoyées !');
                 historique.push('/profils')

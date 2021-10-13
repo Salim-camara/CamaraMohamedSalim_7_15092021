@@ -35,7 +35,7 @@ const User = db.define('User', {
     },
     imageUrl: {
         type: Sequelize.TEXT('long'),
-        defaultValue: 'http://localhost/3001/images/defaultskin.png'
+        defaultValue: null
     },
     waitingTime: {
         type: Sequelize.INTEGER,

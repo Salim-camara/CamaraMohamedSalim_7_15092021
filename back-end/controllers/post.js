@@ -41,3 +41,10 @@ exports.getPosts = (req, res) => {
         })
         .catch((err) => console.log('il ya une erreur ' + err));
 }
+
+// Middleware DELETE
+exports.deletePost = (req, res) => {
+
+    console.log(req.params);
+    res.status(203).json({message: 'ok'})
+}
