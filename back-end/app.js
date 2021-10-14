@@ -6,6 +6,7 @@ const userRoute = require('./route/user');
 const postsRoute = require('./route/post');
 const path = require('path');
 const Sequelize = require('./models/bdd');
+const Post = require('./models/posts');
 const User = require('./models/user');
 
 // autorisation de toutes du CORS

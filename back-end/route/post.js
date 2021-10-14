@@ -11,5 +11,7 @@ router.post('/posts', auth, postControl.newPost)
 router.get('/posts', auth, postControl.getPosts)
 // route de supression
 router.delete('/posts', postControl.deletePost);
+// route like
+router.put('/posts', auth, postControl.likePost);
 
 module.exports = router;

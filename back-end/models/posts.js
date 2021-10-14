@@ -5,7 +5,9 @@ const db = require('./bdd');
 
 const Post = db.define('posts', {
     id: {
-        type: Sequelize.INTEGER,  
+        type: Sequelize.INTEGER,
+        autoIncrement: true,
+        allowNull: false,  
         primaryKey: true
     },
     title: {

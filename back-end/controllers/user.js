@@ -24,7 +24,7 @@ exports.singUp = (req, res, next) => {
             });
             user.save()
                 .then(() => res.status(201).json({ message: 'utilisateur créé !'}))
-                .catch((error) => res.status(409).json({ message: 'Cette adresse email est déjà utilisée'}));
+                .catch((error) => res.status(409).json({ message: 'Cette adresse email est déjà utilisée ' + error}));
         })
         .catch((err) => res.status(500).json({ message: 'Erreur serveur' + err }));
     
@@ -97,7 +97,7 @@ exports.updateUser = (req, res) => {
     
 }
 
-// middleware DELETE
+// middleware DELETE 
 exports.deleteUser = (req, res) => {
     
     const userToken = req.headers.authorization.split(' ')[1];

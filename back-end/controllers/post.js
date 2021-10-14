@@ -50,3 +50,14 @@ exports.deletePost = (req, res) => {
         .then(() => res.status(203).json({ message: 'Post correctement supprimer'}))
         .catch(() => res.status(500).json({ message: 'Post non supprimer'}));
 }
+
+// Middlexare LIKE
+exports.likePost = (req, res) => {
+
+    Post.update({
+            usersLiked: 25
+        },
+        { where: { id: 34 }})
+            .then(() => res.status(203))
+            .catch((err) => res.status(500).json({err}))
+}

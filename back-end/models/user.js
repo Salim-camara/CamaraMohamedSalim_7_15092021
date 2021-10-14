@@ -6,26 +6,33 @@ const db = require('./bdd');
 const User = db.define('users', {
     user_id: {
         primaryKey: true,
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        autoIncrement: true,
+        allowNull: false
     },
     lastname: {
-        type: Sequelize.STRING 
+        type: Sequelize.STRING,
+        allowNull: false
     },
     firstname: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        allowNull: false
     },
     birth: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        allowNull: false
     },
     sexe: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        allowNull: false
     },
     email: {
         type: Sequelize.STRING,
-        unique: true
+        allowNull: false
     },
     password: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        allowNull: false
     },
     mistakes: {
         type: Sequelize.INTEGER,
@@ -58,5 +65,6 @@ User.associate = (models) => {
     // associations can be defined here
     User.hasOne(models.Post, { onDelete: 'cascade' });
 };
+
 
 module.exports = User;

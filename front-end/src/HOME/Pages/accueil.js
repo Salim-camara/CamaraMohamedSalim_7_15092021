@@ -14,6 +14,7 @@ const Accueil = () => {
     const token = localStorage.getItem('token');
 
     useEffect(() => {
+        console.log('bonjour');
 
         if(!token) {
             historique.push('/error');
@@ -27,7 +28,6 @@ const Accueil = () => {
                 .then((res) => {
                     data = res.data.data;
                     const userId = res.data.userId;
-                    console.log('on est bien dans la map')
 
                     
                     setAllPosts(data.map((post) => (
@@ -35,8 +35,8 @@ const Accueil = () => {
                                 {/* user */}
                                 <div className="post__user">
                                     <div className="user_container">
-                                        <img src={post.User.imageUrl} className="user_pdp" />
-                                        <h2 className="user_name">{post.User.firstname} {post.User.lastname}</h2>
+                                        {post.user.imageUrl ? (<img src={post.user.imageUrl} className="user_pdp" />) : (<img src={'http://localhost:3001/images/defaultskin.png'} className="user_pdp" />)}
+                                        <h2 className="user_name">{post.user.firstname} {post.user.lastname}</h2>
                                     </div>
                                     {post.user_id === userId && (
                                         <button className="post_delete" value={post.id} onClick={handleDelete}>x</button>
