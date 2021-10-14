@@ -51,13 +51,31 @@ exports.deletePost = (req, res) => {
         .catch(() => res.status(500).json({ message: 'Post non supprimer'}));
 }
 
-// Middlexare LIKE
+// Middleware LIKE
 exports.likePost = (req, res) => {
 
-    Post.update({
-            usersLiked: 25
-        },
-        { where: { id: 34 }})
-            .then(() => res.status(203))
-            .catch((err) => res.status(500).json({err}))
+    Post.findOne({ where: { id: 1 }})
+        .then((data) => {
+            let array = data.usersLiked.split('-');
+            const userid = 18
+            const ui = userid.toString();
+            let index = array.indexOf(ui);
+
+            
+            if(index != -1) {
+                console.log('ça fonctionne');
+                const indexDelete = index - 1;
+                let newArray = array.splice(3, 1)
+                console.log(newArray);
+                console.log(array.join('-'));
+                // Reste à faire: revoyer le tableau et en faire un length pour avoir le nb total de like
+                res.status(203).json({ message: 'true'})
+
+            } else {
+                console.log('ça ne fonctionne pas')
+                res.status(203).json({ message: 'false'})
+            }
+
+        })
+        .catch((err) => res.status(500).json({ message: err}))
 }

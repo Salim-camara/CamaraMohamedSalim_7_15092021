@@ -20,6 +20,9 @@ const Post = db.define('posts', {
         type: Sequelize.TEXT('long'),
         defaultValue: null
     },
+    usersLiked: {
+        type: Sequelize.STRING(255)
+    },
     user_id: { 
         type: Sequelize.INTEGER,
         allowNull: false
