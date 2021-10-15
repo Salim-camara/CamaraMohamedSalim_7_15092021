@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Navigation from "../Components/nav";
 import Axios from "axios";
 import { useHistory } from "react-router";
@@ -9,6 +9,7 @@ const Newpost = () => {
     const [titre, setTitre] = useState('');
     const [description, setDescription] = useState('');
     const [image, setImage] = useState(null);
+    const [textLength, setTextLength] = useState('0');
 
     const url = 'http://localhost:3001/posts';
     const historique = useHistory();
@@ -20,21 +21,30 @@ const Newpost = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
+
+        if (textLength <= 250) {
+
+            Axios.post(url, {
+                title: titre,
+                description: description,
+                imageUrl: image
+            }, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            })
+            .then(() => {
+                console.log('les données ont bien été envoyées');
+                historique.push('/accueil')})
+            .catch((err) => console.log('les données nont pas été envoyées ' + err));
+
+        } else {
+
+            const error = document.querySelector('#error');
+            error.style.display = 'block';
+            error.style.color = "red";
+        }}
         
-        Axios.post(url, {
-            title: titre,
-            description: description,
-            imageUrl: image
-        }, {
-            headers: {
-                Authorization: `Bearer ${token}`
-            }
-        })
-        .then(() => {
-            console.log('les données ont bien été envoyées');
-            historique.push('/accueil')})
-        .catch((err) => console.log('les données nont pas été envoyées ' + err));
-    }
 
     // base64 convertisseur
     function getBase64(e) {
@@ -53,6 +63,26 @@ const Newpost = () => {
          setImage(null);
      }
 
+     const handleDescription = (e) => {
+        setDescription(e.target.value);
+        
+     }
+
+     useEffect(() => {
+        let textLength = description.length;
+        setTextLength(textLength);
+        const error = document.querySelector('#error');
+        error.style.display = 'none';
+
+        if(textLength > 250) {
+            const span = document.querySelector('#textLength');
+            span.style.color = 'red';
+        } else {
+            const span = document.querySelector('#textLength');
+            span.style.color = 'black';
+        }
+     }, [description])
+
 
 
     return (
@@ -69,7 +99,9 @@ const Newpost = () => {
 
                     <div className="np__form--description">
                         <p className="np--paragraphe">Description</p>
-                        <textarea className="np__form--description--ta" value={description} onChange={ (e) => setDescription(e.target.value) }></textarea>
+                        <textarea className="np__form--description--ta" value={description} onChange={ handleDescription }></textarea>
+                        <span id="textLength">{textLength}/250 caractères</span>
+                        <span id="error">Votre description est trop longue</span>
                     </div>
 
                     <div className="np__form--file">

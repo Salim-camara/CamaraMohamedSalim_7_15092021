@@ -35,9 +35,10 @@ exports.getPosts = (req, res) => {
 
     Post.findAll({ include: [{
         model: User,
-        attributes: ['firstname', 'lastname', 'imageUrl', 'user_id']
+        attributes: ['firstname', 'lastname', 'imageUrl', 'user_id', 'isAdmin']
       }] }) 
         .then((data) => {
+            const dataReverse = data.reverse(); 
             res.status(200).json({ data, userId });
         })
         .catch((err) => console.log('il ya une erreur ' + err));
@@ -45,9 +46,6 @@ exports.getPosts = (req, res) => {
 
 // Middleware GET ONE
 exports.getLike = (req, res) => {
-
-    
-
 
     const id = req.query.id;
     const encodedToken = req.query.token;

@@ -38,7 +38,8 @@ const Accueil = () => {
                                         {post.user.imageUrl ? (<img src={post.user.imageUrl} className="user_pdp" />) : (<img src={'http://localhost:3001/images/defaultskin.png'} className="user_pdp" />)}
                                         <h2 className="user_name">{post.user.firstname} {post.user.lastname}</h2>
                                     </div>
-                                    {post.user_id === userId && (
+                                    
+                                    {post.user_id === userId | post.user.isAdmin === true && ( 
                                         <button className="post_delete" value={post.id} onClick={handleDelete}>x</button>
                                     )}
                                 </div>

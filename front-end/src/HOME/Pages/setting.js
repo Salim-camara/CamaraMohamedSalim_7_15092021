@@ -41,7 +41,7 @@ const Setting = () => {
                         }
                         
             
-                        if (data.sexe == 'f') {
+                        if (data.sexe == 'm') {
                             setSexe(<div><i class="fas fa-mars left__age--icon"></i></div>);
                         } else {
                             setSexe(<div><i class="fas fa-venus left__age--icon--f"></i></div>);

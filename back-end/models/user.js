@@ -34,6 +34,11 @@ const User = db.define('users', {
         type: Sequelize.STRING,
         allowNull: false
     },
+    isAdmin: {
+        type: Sequelize.BOOLEAN,
+        defaultValue: 0,
+        allowNull: false
+    },
     mistakes: {
         type: Sequelize.INTEGER,
         defaultValue: 0

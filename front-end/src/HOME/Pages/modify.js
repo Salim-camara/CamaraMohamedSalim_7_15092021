@@ -37,8 +37,13 @@ const Modify = () => {
                         setDate(user.birth);
                         setRadio(user.sexe);
                         setBio(user.bio);
-                        setPdpUrl(user.imageUrl);
                         localStorage.removeItem('img');
+
+                        if(user.imageUrl == null) {
+                            setPdpUrl('http://localhost:3001/images/defaultskin.png')
+                        } else {
+                            setPdpUrl(user.imageUrl);
+                        }
                     })
                     .catch((err) => console.log('erreur récupération axios' + err));
         }
@@ -124,19 +129,6 @@ const Modify = () => {
                     
                     <input type="date" className="text" value={ date } onChange={ (e) => setDate(e.target.value) }></input>
 
-                    <div className="sexe__right">
-                        <p>Sexe :</p>
-                        {/* garçon */}
-                        <div className="sexe__m sexe__all">
-                            <label value="m" className="sexe--label">M</label>
-                            <input type="radio" value="m" className="sexe--input" name="radiovalue" value={ radio } onChange={ (e) => setRadio(e.target.value) }></input>
-                        </div>
-                            {/* fille */}
-                        <div className="sexe__f sexe__all">
-                            <label value="f" className="sexe--label">F</label>
-                            <input type="radio" value="f" className="sexe--input" name="radiovalue" value={ radio } onChange={ (e) => setRadio(e.target.value) }></input>
-                        </div>
-                    </div>
                 </div>
                 
                 {/* Bouton de confirmation */}

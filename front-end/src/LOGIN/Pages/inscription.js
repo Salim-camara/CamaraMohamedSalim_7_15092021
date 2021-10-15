@@ -94,8 +94,17 @@ const Inscription = () => {
                 password: password
                 })
                     .then(() => {
-                        historique.push('/profils');
-                    })
+                        Axios.post('http://localhost:3001/connexion', {
+                            email: email,
+                            password: password
+                        })
+                            .then((data) => {
+                                let token = data.data.token;
+                                localStorage.setItem('token', token);
+                                historique.push('/profils');
+                            })
+                            .catch((err) => console.log(err));
+                        })
                     .catch((err) => {
                         const messEmail = document.querySelector('.sign_email');
                         messEmail.style.display = 'block';
@@ -151,7 +160,7 @@ const Inscription = () => {
 
                     <input type="text" placeholder="Email" className="form--input" value={ email } onChange={ (e) => setEmail(e.target.value) }></input>
                     <p className="error sign_email">Veuillez saisir une addresse mail valide</p>
-                    <input type="text" placeholder="Mot de passe" className="form--input" value={ password } onChange={ (e) => setPassword(e.target.value) }></input>
+                    <input type="password" placeholder="Mot de passe" className="form--input" value={ password } onChange={ (e) => setPassword(e.target.value) }></input>
                     <p className="error sign_password">Votre mot de passe doit contenir au moins 8 caractères</p>
 
                     <div className="connexion--error"></div>

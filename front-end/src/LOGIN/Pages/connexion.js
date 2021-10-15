@@ -45,7 +45,7 @@ const Connexion = () => {
 
             <form className="form" onSubmit={ handleSubmit }>
                 <input type="text" placeholder="Email" className="form--input" value={ email } onChange={ (e) => setEmail(e.target.value) }></input>
-                <input type="text" placeholder="Mot de passe" className="form--input" value={ password } onChange={ (e) => setPassword(e.target.value) }></input>
+                <input type="password" placeholder="Mot de passe" className="form--input" value={ password } onChange={ (e) => setPassword(e.target.value) }></input>
 
                 <div className="connexion--error">
                     <p className="connexion--error--p" id="error"></p>
