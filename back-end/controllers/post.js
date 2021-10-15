@@ -3,6 +3,7 @@ const Post = require('../models/posts');
 const User = require('../models/user');
 const jwt = require('jsonwebtoken');
 const multer = require('../middlewares/multer');
+const e = require('express');
 
 
 // Middleware POST
@@ -25,7 +26,7 @@ exports.newPost = (req, res) => {
         .catch((err) => { res.status(400).json({ message: 'post non créé' + err}) });
 }
 
-// Middleware GET
+// Middleware GET All
 exports.getPosts = (req, res) => {
 
     const userToken = req.headers.authorization.split(' ')[1];
@@ -42,10 +43,30 @@ exports.getPosts = (req, res) => {
         .catch((err) => console.log('il ya une erreur ' + err));
 }
 
+// Middleware GET ONE
+exports.getLike = (req, res) => {
+
+    
+
+
+    const id = req.query.id;
+    const encodedToken = req.query.token;
+    const decodedToken = jwt.verify(encodedToken, 'CLEF_SECRETE');
+    const userId = decodedToken.tokenUID;
+
+    Post.findOne({ where: { id: id }})
+        .then((data) => {
+            console.log('heart' + data)
+            res.status(200).json({ data, userId })
+        })
+        .catch((err) => res.status(404).json({ message : 'erreur systeme like ' + err}))
+}
+
 // Middleware DELETE
 exports.deletePost = (req, res) => {
 
-    const postId = req.body.postId
+    const postId = req.body.postId;
+    console.log(postId);
     Post.destroy({ where: { id: postId }})
         .then(() => res.status(203).json({ message: 'Post correctement supprimer'}))
         .catch(() => res.status(500).json({ message: 'Post non supprimer'}));
@@ -54,28 +75,56 @@ exports.deletePost = (req, res) => {
 // Middleware LIKE
 exports.likePost = (req, res) => {
 
-    Post.findOne({ where: { id: 1 }})
+    const userToken = req.headers.authorization.split(' ')[1];
+    const decodedToken = jwt.verify(userToken, 'CLEF_SECRETE');
+    const userId = decodedToken.tokenUID;
+    const id = req.body.postId;
+
+    Post.findOne({ where: { id: id }})
         .then((data) => {
-            let array = data.usersLiked.split('-');
-            const userid = 18
-            const ui = userid.toString();
-            let index = array.indexOf(ui);
+            const test = data.usersLiked;
 
-            
-            if(index != -1) {
-                console.log('ça fonctionne');
-                const indexDelete = index - 1;
-                let newArray = array.splice(3, 1)
-                console.log(newArray);
-                console.log(array.join('-'));
-                // Reste à faire: revoyer le tableau et en faire un length pour avoir le nb total de like
-                res.status(203).json({ message: 'true'})
+            if(test == null) {
+                const idString = userId.toString();
 
+                Post.update({ usersLiked: idString }, { where: { id: id }})
+                    .then(() => res.status(203).json({ message: 'liked'}))
+                    .catch((err) => res.status(500).json({ message: err}));
             } else {
-                console.log('ça ne fonctionne pas')
-                res.status(203).json({ message: 'false'})
-            }
+
+                let array = data.usersLiked.split('-');
+                const userid = userId;
+                const ui = userid.toString();
+                let index = array.indexOf(ui);
+
+                
+                if(index != -1) {
+                    // // si l'utilisateur a déjà liké
+                    let indexDelete = array.splice(index, 1);
+                    let totalLikes = array.length;
+                    const arrayString = array.join('-');
+
+                    Post.update({
+                        likes: totalLikes,
+                        usersLiked: arrayString
+                    }, { where: { id: id }})
+                        .then(() => res.status(203).json({ message: 'disliked'}))
+                        .catch((err) => res.status(503).json({ message: 'erreur dislike' + err}))
+
+                } else {
+                    // si l'utilisateur n'a pas encore liké
+                    let totalLikes = array.push(ui);
+                    const arrayString = array.join('-');
+                    
+                    Post.update({
+                        likes: totalLikes,
+                        usersLiked: arrayString
+                    }, { where: { id: id }})
+                        .then(() => res.status(203).json({ message: 'liked'}))
+                        .catch((err) => res.status(503).json({ message: 'erreur like' + err}))
+                }
+                }
 
         })
-        .catch((err) => res.status(500).json({ message: err}))
+        .catch((err) => res.status(500).json({ message: 'erreur findOne' + err}))
 }

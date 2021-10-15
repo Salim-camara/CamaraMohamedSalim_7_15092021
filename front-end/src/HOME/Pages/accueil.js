@@ -54,9 +54,9 @@ const Accueil = () => {
                                 </div>
                                 {/* likes */}
                                 <div className="post__likes">
-                                    <i class="far fa-heart"></i>
-                                    <p className="post__likes--p">X likes</p>
-                                    {post.title}
+                                    <i class="far fa-heart" id={`${post.id}heart`} onClick={handleLike}></i>
+                                    <span id={`${post.id}span`}>{post.likes}</span>
+                                    {/* <p className={post.id} id={post.id}> likes</p> */}
                                 </div>
                             </div>
                     ))) 
@@ -72,6 +72,46 @@ const Accueil = () => {
                 console.log('post correctement supprimer');
                 window.location.reload();})
             .catch((err) => console.log(err));
+    }
+
+    const handleLike = (e) => {
+        const postId = e.target.id;
+        postId.split('s');
+        const id = postId[0];
+        console.log(id);
+        const token = localStorage.getItem('token');
+
+        Axios.put(url, { postId: id }, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        })
+            .then(() => {
+                Axios.get('http://localhost:3001/post', { params: { id: id, token: token } })
+                    .then((data) => {
+                        const spanName = `${id}span`;
+                        const span = document.getElementById(spanName);
+                        const likes = data.data.data.likes;
+                        span.innerHTML = likes;
+                        
+                        const userid = data.data.userId;
+                        const uiString = userid.toString();
+                        const testArray = data.data.data.usersLiked;
+                        let arrayString = testArray.split('-');
+                        let indexTest = arrayString.indexOf(uiString);
+                        console.log(indexTest);
+
+                        if(indexTest == -1) {
+                            const heart = document.getElementById(postId);
+                            heart.style.color = 'black';
+                        } else {
+                            const heart = document.getElementById(postId);
+                            heart.style.color = 'red';
+                        }
+
+                    })
+                    .catch((err) => console.log(err))
+            })
     }
 
     
