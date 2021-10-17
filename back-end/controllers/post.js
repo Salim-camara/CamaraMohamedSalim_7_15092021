@@ -51,11 +51,18 @@ exports.getLike = (req, res) => {
     const encodedToken = req.query.token;
     const decodedToken = jwt.verify(encodedToken, 'CLEF_SECRETE');
     const userId = decodedToken.tokenUID;
+    const userLike = `${userId}-`;
 
     Post.findOne({ where: { id: id }})
         .then((data) => {
-            console.log('heart' + data)
-            res.status(200).json({ data, userId })
+            const liked = data.dataValues.usersLiked;
+            if(liked.includes(userLike)) {
+                const userLiked = true;
+                res.status(200).json({ data, userLiked })
+            } else {
+                const userLiked = false
+                res.status(200).json({ data, userLiked })
+            }
         })
         .catch((err) => res.status(404).json({ message : 'erreur systeme like ' + err}))
 }
@@ -66,8 +73,8 @@ exports.deletePost = (req, res) => {
     const postId = req.body.postId;
     console.log(postId);
     Post.destroy({ where: { id: postId }})
-        .then(() => res.status(203).json({ message: 'Post correctement supprimer'}))
-        .catch(() => res.status(500).json({ message: 'Post non supprimer'}));
+        .then(() => res.status(203).json({ message: 'Post correctement supprimer' }))
+        .catch(() => res.status(500).json({ message: 'Post non supprimer' }));
 }
 
 // Middleware LIKE
@@ -77,51 +84,47 @@ exports.likePost = (req, res) => {
     const decodedToken = jwt.verify(userToken, 'CLEF_SECRETE');
     const userId = decodedToken.tokenUID;
     const id = req.body.postId;
+    const userLike = `${userId}-`;
 
     Post.findOne({ where: { id: id }})
         .then((data) => {
-            const test = data.usersLiked;
+            const allLikes = data.dataValues.usersLiked;
+            console.log(allLikes)
+            if(allLikes == null) {
 
-            if(test == null) {
-                const idString = userId.toString();
+                Post.update({ usersLiked: userLike }, { where: { id: id }})
+                    .then(() => {
+                        res.status(203).json({ message: 'liked'})
+                    })
+                    .catch((err) => res.status(500).json({ message: 'disliked' + err}));
 
-                Post.update({ usersLiked: idString }, { where: { id: id }})
-                    .then(() => res.status(203).json({ message: 'liked'}))
-                    .catch((err) => res.status(500).json({ message: err}));
             } else {
 
-                let array = data.usersLiked.split('-');
-                const userid = userId;
-                const ui = userid.toString();
-                let index = array.indexOf(ui);
-
-                
-                if(index != -1) {
-                    // // si l'utilisateur a déjà liké
-                    let indexDelete = array.splice(index, 1);
-                    let totalLikes = array.length;
-                    const arrayString = array.join('-');
-
-                    Post.update({
-                        likes: totalLikes,
-                        usersLiked: arrayString
-                    }, { where: { id: id }})
-                        .then(() => res.status(203).json({ message: 'disliked'}))
-                        .catch((err) => res.status(503).json({ message: 'erreur dislike' + err}))
-
-                } else {
-                    // si l'utilisateur n'a pas encore liké
-                    let totalLikes = array.push(ui);
-                    const arrayString = array.join('-');
+                if(allLikes.includes(userLike)) {
+                    const newString = allLikes.replace(userLike, '');
+                    const totalLikes = newString.split('-').length;
+                    const totalLikesAdjust = totalLikes - 1;
+                    console.log(totalLikesAdjust);
                     
-                    Post.update({
-                        likes: totalLikes,
-                        usersLiked: arrayString
-                    }, { where: { id: id }})
-                        .then(() => res.status(203).json({ message: 'liked'}))
-                        .catch((err) => res.status(503).json({ message: 'erreur like' + err}))
+                    Post.update({ usersLiked: newString, likes: totalLikesAdjust }, { where: { id: id }})
+                        .then(() => res.status(203).json({ message: 'disliked' }))
+                        .catch((err) => res.status(500).json({ messgae: err}));
+    
+                } else {
+                    const newString = allLikes.concat(userLike);
+                    const totalLikes = newString.split('-').length;
+                    const totalLikesAdjust = totalLikes - 1;
+                    console.log(totalLikesAdjust);
+
+                    Post.update({ usersLiked: newString, likes: totalLikesAdjust }, { where: { id: id }})
+                        .then(() => {
+                            res.status(203).json({ message: 'liked'})
+                        })
+                        .catch((err) => res.status(500).json({ message: 'disliked' + err}));
                 }
-                }
+            }
+            
+            
 
         })
         .catch((err) => res.status(500).json({ message: 'erreur findOne' + err}))

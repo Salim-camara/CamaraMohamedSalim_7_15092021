@@ -55,8 +55,8 @@ const Accueil = () => {
                                 </div>
                                 {/* likes */}
                                 <div className="post__likes">
-                                    <i class="far fa-heart" id={`${post.id}heart`} onClick={handleLike}></i>
-                                    <span id={`${post.id}span`}>{post.likes}</span>
+                                    <i class="far fa-heart" id={`${post.id}-heart`} onClick={handleLike}></i>
+                                    <span id={`${post.id}-span`}>{post.likes}</span>
                                     {/* <p className={post.id} id={post.id}> likes</p> */}
                                 </div>
                             </div>
@@ -77,8 +77,7 @@ const Accueil = () => {
 
     const handleLike = (e) => {
         const postId = e.target.id;
-        postId.split('s');
-        const id = postId[0];
+        let id = postId.split('-')[0];
         console.log(id);
         const token = localStorage.getItem('token');
 
@@ -90,25 +89,34 @@ const Accueil = () => {
             .then(() => {
                 Axios.get('http://localhost:3001/post', { params: { id: id, token: token } })
                     .then((data) => {
-                        const spanName = `${id}span`;
+                        console.log(data.data.userLiked);
+                        if(data.data.userLiked) {
+                            const heart = document.getElementById(postId);
+                            heart.style.color = 'red';
+                        } else {
+                            const heart = document.getElementById(postId);
+                            heart.style.color = 'black';
+                        }
+
+                        const spanName = `${id}-span`;
                         const span = document.getElementById(spanName);
                         const likes = data.data.data.likes;
                         span.innerHTML = likes;
                         
-                        const userid = data.data.userId;
-                        const uiString = userid.toString();
-                        const testArray = data.data.data.usersLiked;
-                        let arrayString = testArray.split('-');
-                        let indexTest = arrayString.indexOf(uiString);
-                        console.log(indexTest);
+                        // const userid = data.data.userId;
+                        // const uiString = userid.toString();
+                        // const testArray = data.data.data.usersLiked;
+                        // let arrayString = testArray.split('-');
+                        // let indexTest = arrayString.indexOf(uiString);
+                        // console.log(indexTest);
 
-                        if(indexTest == -1) {
-                            const heart = document.getElementById(postId);
-                            heart.style.color = 'black';
-                        } else {
-                            const heart = document.getElementById(postId);
-                            heart.style.color = 'red';
-                        }
+                        // if(indexTest == -1) {
+                        //     const heart = document.getElementById(postId);
+                        //     heart.style.color = 'black';
+                        // } else {
+                        //     const heart = document.getElementById(postId);
+                        //     heart.style.color = 'red';
+                        // }
 
                     })
                     .catch((err) => console.log(err))
