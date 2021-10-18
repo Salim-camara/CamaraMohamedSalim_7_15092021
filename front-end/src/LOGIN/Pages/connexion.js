@@ -9,7 +9,6 @@ const Connexion = () => {
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    // const [error, setError] = useState('');
 
     const url = 'http://localhost:3001/connexion';
 
@@ -30,7 +29,7 @@ const Connexion = () => {
                 historique.push('/profils');
             })
             .catch((err) => {
-                let error = document.querySelector('#error');
+                const error = document.querySelector('#error_log');
                 error.innerHTML = err.response.data.message;
             });
 
@@ -48,8 +47,7 @@ const Connexion = () => {
                 <input type="password" placeholder="Mot de passe" className="form--input" value={ password } onChange={ (e) => setPassword(e.target.value) }></input>
 
                 <div className="connexion--error">
-                    <p className="connexion--error--p" id="error"></p>
-                    {/* {error} */}
+                    <p className="connexion--error--p" id="error_log"></p>
                 </div>
 
                 <button className="button" type="submit">Let's go</button>

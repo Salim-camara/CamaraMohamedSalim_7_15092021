@@ -74,8 +74,6 @@ const Accueil = () => {
             }
         })
                     .then((data) => {
-                        console.log('test');
-                        console.log(data.data.data[0]);
                         const serverId = data.data.userId;
                         const dataLength = data.data.data.length;
                         const dataTest = data.data.data;
@@ -87,12 +85,9 @@ const Accueil = () => {
                             const usersLiked = dataTest[i].usersLiked;
 
                             if(usersLiked.includes(userId)) {
-                                console.log('true');
                                 heart.style.color = 'red';
 
-
                             } else {
-                                console.log('false');
                                 heart.style.color = 'black';
                             }
                         }

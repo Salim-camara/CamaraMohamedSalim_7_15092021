@@ -20,6 +20,10 @@ const Post = db.define('posts', {
         type: Sequelize.TEXT('long'),
         defaultValue: null
     },
+    waitingTime: {
+        type: Sequelize.STRING(255),
+        defaultValue: '0'
+    },
     usersLiked: {
         type: Sequelize.STRING(255),
         defaultValue: ''
