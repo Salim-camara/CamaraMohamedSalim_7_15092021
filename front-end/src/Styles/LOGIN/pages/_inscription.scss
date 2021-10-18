@@ -122,3 +122,14 @@
 .sign_password {
     display: none;
 }
+
+@media screen and (max-width: 768px) {
+    
+    .inscription {
+        width: 100%;
+    }
+
+    .form__birth--date {
+        width: 60%;
+    }
+}

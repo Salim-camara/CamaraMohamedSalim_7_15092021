@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import Login from '../Components/login';
 import Navigation from '../Components/nav';
 import Axios from 'axios';
 import { Link, Redirect, useHistory } from 'react-router-dom';

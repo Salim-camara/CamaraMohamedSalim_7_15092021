@@ -17,3 +17,10 @@
     color: red;
 }
 
+
+@media screen and (max-width: 768px) {
+    
+    .connexion {
+        width: 100%;
+    }
+}
