@@ -38,7 +38,8 @@ exports.getPosts = (req, res) => {
         attributes: ['firstname', 'lastname', 'imageUrl', 'user_id', 'isAdmin']
       }] }) 
         .then((data) => {
-            const dataReverse = data.reverse(); 
+
+            const dataReverse = data.reverse();
             res.status(200).json({ data, userId });
         })
         .catch((err) => console.log('il ya une erreur ' + err));

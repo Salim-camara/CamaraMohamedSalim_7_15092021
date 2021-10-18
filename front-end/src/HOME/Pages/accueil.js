@@ -13,8 +13,9 @@ const Accueil = () => {
     const historique = useHistory();
     const token = localStorage.getItem('token');
 
+
+    // RECUPERATION DE TOUTES LES DONNEES
     useEffect(() => {
-        console.log('bonjour');
 
         if(!token) {
             historique.push('/error');
@@ -57,7 +58,6 @@ const Accueil = () => {
                                 <div className="post__likes">
                                     <i class="far fa-heart" id={`${post.id}-heart`} onClick={handleLike}></i>
                                     <span id={`${post.id}-span`}>{post.likes}</span>
-                                    {/* <p className={post.id} id={post.id}> likes</p> */}
                                 </div>
                             </div>
                     ))) 
@@ -66,15 +66,43 @@ const Accueil = () => {
         }
     },[]);
 
-    const handleDelete = (e) => {
-        const postId = e.target.value;
-        Axios.delete(url, { data: { postId: postId } })
-            .then(() => {
-                console.log('post correctement supprimer');
-                window.location.reload();})
-            .catch((err) => console.log(err));
-    }
+    // TEST DU COEUR ROUGE
+    useEffect(() => {
+        Axios.get(url, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        })
+                    .then((data) => {
+                        console.log('test');
+                        console.log(data.data.data[0]);
+                        const serverId = data.data.userId;
+                        const dataLength = data.data.data.length;
+                        const dataTest = data.data.data;
 
+                        for(let i = 0; i <= dataLength; i++) {
+                            const heartId = `${dataTest[i].id}-heart`;
+                            const heart = document.getElementById(heartId);
+                            const userId = `${serverId}-`;
+                            const usersLiked = dataTest[i].usersLiked;
+
+                            if(usersLiked.includes(userId)) {
+                                console.log('true');
+                                heart.style.color = 'red';
+
+
+                            } else {
+                                console.log('false');
+                                heart.style.color = 'black';
+                            }
+                        }
+
+                    })
+                    .catch((err) => console.log(err))
+    }, [])
+
+
+    // BOUTON DE LIKE
     const handleLike = (e) => {
         const postId = e.target.id;
         let id = postId.split('-')[0];
@@ -102,25 +130,20 @@ const Accueil = () => {
                         const span = document.getElementById(spanName);
                         const likes = data.data.data.likes;
                         span.innerHTML = likes;
-                        
-                        // const userid = data.data.userId;
-                        // const uiString = userid.toString();
-                        // const testArray = data.data.data.usersLiked;
-                        // let arrayString = testArray.split('-');
-                        // let indexTest = arrayString.indexOf(uiString);
-                        // console.log(indexTest);
-
-                        // if(indexTest == -1) {
-                        //     const heart = document.getElementById(postId);
-                        //     heart.style.color = 'black';
-                        // } else {
-                        //     const heart = document.getElementById(postId);
-                        //     heart.style.color = 'red';
-                        // }
 
                     })
                     .catch((err) => console.log(err))
             })
+    }
+
+    // BOUTON DE SUPRESSION
+    const handleDelete = (e) => {
+        const postId = e.target.value;
+        Axios.delete(url, { data: { postId: postId } })
+            .then(() => {
+                console.log('post correctement supprimer');
+                window.location.reload();})
+            .catch((err) => console.log(err));
     }
 
     
