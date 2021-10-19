@@ -14,3 +14,7 @@ input {
     margin-bottom: 20px;
     border: 2px solid $primary-color;
 }
+
+html {
+    scroll-behavior: smooth;
+  }

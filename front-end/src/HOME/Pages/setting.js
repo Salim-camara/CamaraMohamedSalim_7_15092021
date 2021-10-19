@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import Navigation from "../Components/nav";
-import PdP from "../../img/lama.png";
 import Axios from "axios";
 import { useHistory } from "react-router-dom";
 
@@ -57,7 +56,7 @@ const Setting = () => {
     // supression de compte
     const handleDelete = () => {
         
-        if(window.confirm('Etes-vous s^r de vouloir faire ça, votre compte ainsi que vos posts seront définitivement supprimer !')) {
+        if(window.confirm('Etes-vous sûr de vouloir faire ça, votre compte ainsi que tous vos posts seront définitivement supprimer !')) {
             Axios.delete(url, {
                 headers: {
                     Authorization: `Bearer ${token}`

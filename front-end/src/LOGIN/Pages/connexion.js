@@ -22,10 +22,10 @@ const Connexion = () => {
                 email: email,
                 password: password
          })
-            .then((data) => {
+            .then((data) => { 
                 let token = data.data.token;
                 localStorage.setItem('token', token);
-                historique.push('/profils');
+                historique.push('/accueil');
             })
             .catch((err) => {
                 const error = document.querySelector('#error_log');

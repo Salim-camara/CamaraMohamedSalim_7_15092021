@@ -57,7 +57,7 @@ const Accueil = () => {
                                 {/* likes */}
                                 <div className="post__likes">
                                     <i class="far fa-heart" id={`${post.id}-heart`} onClick={handleLike}></i>
-                                    <span id={`${post.id}-span`}>{post.likes}</span>
+                                    <span id={`${post.id}-span`} className="spanLike">{post.likes}</span>
                                 </div>
                             </div>
                     ))) 
@@ -141,15 +141,33 @@ const Accueil = () => {
             .catch((err) => console.log(err));
     }
 
+    // BOUTON POUR REVENIR EN HAUT DE PAGE
+    window.addEventListener('scroll', () => {
+
+        const button = document.getElementById('scroll');
+        if(button != null || button != undefined) {
+            if(window.scrollY > 100) {
+                button.style.display = "block";
+            } else {
+                button.style.display = "none";
+            }
+        }
+    })
+
+    const handleScroll = () => {
+        document.documentElement.scrollTop = 0;
+    }
+
     
 
 
     
-
+ 
     return (
         <div className="accueil">
             <Navigation />
             {allPosts}
+            <button id="scroll" onClick={handleScroll}>^</button>
         </div>
     )
 }

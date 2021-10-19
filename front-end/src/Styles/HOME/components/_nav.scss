@@ -37,3 +37,16 @@
     color: inherit;
     text-decoration: none;
 }
+
+// version petit téléphone
+@media screen and (max-width: 500px) {
+
+    .nav_-_home {
+        @include dsf(center);
+    }
+
+    .nav_-_home--logo {
+        display: none;
+    }
+    
+}

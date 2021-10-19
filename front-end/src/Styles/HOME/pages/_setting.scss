@@ -100,3 +100,45 @@
         }
     }
 }
+
+
+// Version tablette
+@media screen and (max-width: 991px) {
+
+    .set {
+        width: 100%;
+    }
+    
+}
+
+// version mobile
+@media screen and (max-width: 768px) {
+
+    .set {
+        width: 100%;
+    }
+
+    .container {
+        @include dsc();
+        width: 100%;
+        height: auto;
+        padding: 30px 0 30px 0;
+    }
+
+    .left {
+        
+        &--pdp {
+            width: 120px;
+            height: 120px;
+        }
+
+        &--p {
+            font-size: 10px;
+        }
+    }
+
+    .right {
+        @include dsc(center);
+    }
+    
+}

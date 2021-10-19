@@ -65,20 +65,31 @@
         border-bottom: 5px solid $secondary-color;
         display: inline-block;
     }
+
+    &--desc {
+        font-size: 20px;
+        font-weight: 500;
+    }
 }
 
 .post__likes {
     @include dsf(center);
-    align-items: baseline;
+    align-items: center;
     border-top: 1px solid grey;
     padding-top: 10px;
     width: 100%;
+}
 
-    &--p {
-        margin-left: 10px;
-    }
+.spanLike {
+    font-weight: 600;
+    font-size: 20px;
 }
 
 .img_accueil {
     max-width: 100%;
+}
+
+.fa-heart {
+    font-size: 25px;
+    margin-right: 10px;
 }
