@@ -49,7 +49,12 @@ const Post = db.define('posts', {
 });
 
 
-Post.belongsTo(User, { foreignKey: 'user_id' });
+Post.belongsTo(User, {
+    foreignKey: { name: 'user_id'},
+    onDelete: 'CASCADE',
+  });
 
 
-module.exports = Post;
+
+
+module.exports = Post; 

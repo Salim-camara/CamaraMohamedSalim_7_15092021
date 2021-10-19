@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Navigation from "../Components/nav";
 import Axios from "axios";
-import Post from "../Components/post";
 import { useHistory } from "react-router";
 
 const Accueil = () => {
@@ -40,7 +39,7 @@ const Accueil = () => {
                                         <h2 className="user_name">{post.user.firstname} {post.user.lastname}</h2>
                                     </div>
                                     
-                                    {post.user_id === userId | post.user.isAdmin === true && ( 
+                                    {(post.user_id === userId || post.user.isAdmin === true) && ( 
                                         <button className="post_delete" value={post.id} onClick={handleDelete}>x</button>
                                     )}
                                 </div>

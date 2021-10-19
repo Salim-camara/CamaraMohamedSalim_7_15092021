@@ -66,10 +66,16 @@ const User = db.define('users', {
     }
 });
 
-User.associate = (models) => {
-    // associations can be defined here
-    User.hasOne(models.Post, { onDelete: 'cascade' });
-};
+// User.associate = (models) => {
+//     // associations can be defined here
+//     User.hasOne(models.Post, { onDelete: 'cascade' });
+// };
+
+// User.hasMany(Post, { onDelete: 'cascade' });
+
+// Post.belongsTo(User, { foreignKey: 'user_id' });
+
+// User.hasMany(Post, { onDelete: 'cascade' });
 
 
 module.exports = User;
