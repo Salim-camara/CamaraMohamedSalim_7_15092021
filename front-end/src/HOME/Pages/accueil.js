@@ -28,6 +28,7 @@ const Accueil = () => {
                 .then((res) => {
                     data = res.data.data;
                     const userId = res.data.userId;
+                    const isAdmin = res.data.isAdmin;
 
                     
                     setAllPosts(data.map((post) => (
@@ -39,7 +40,7 @@ const Accueil = () => {
                                         <h2 className="user_name">{post.user.firstname} {post.user.lastname}</h2>
                                     </div>
                                     
-                                    {(post.user_id === userId || post.user.isAdmin === true) && ( 
+                                    {(post.user_id === userId || isAdmin === true) && ( 
                                         <button className="post_delete" value={post.id} onClick={handleDelete}>x</button>
                                     )}
                                 </div>

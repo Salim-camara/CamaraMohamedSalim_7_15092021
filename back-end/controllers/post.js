@@ -35,12 +35,21 @@ exports.getPosts = (req, res) => {
 
     Post.findAll({ include: [{
         model: User,
-        attributes: ['firstname', 'lastname', 'imageUrl', 'user_id', 'isAdmin']
+        attributes: ['firstname', 'lastname', 'imageUrl', 'user_id']
       }] }) 
         .then((data) => {
 
+            const newUserId = userId;
+
             const dataReverse = data.reverse();
-            res.status(200).json({ data, userId });
+
+            console.log(newUserId);
+
+            User.findOne({ where: { user_id: newUserId } })
+                .then((admin) => {
+                    const isAdmin = admin.dataValues.isAdmin;
+                    res.status(200).json({ data, userId, isAdmin });
+                });
         })
         .catch((err) => console.log('il ya une erreur ' + err));
 }

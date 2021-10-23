@@ -51,7 +51,7 @@ const User = db.define('users', {
         defaultValue: null
     },
     waitingTime: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.STRING,
         defaultValue: 0
     },
     createdAt: {
